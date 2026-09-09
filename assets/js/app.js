@@ -1,5 +1,9 @@
 "use strict";
 
+/* =========================================================
+   PRODUCTOS BASE
+   ========================================================= */
+
 const PRODUCTOS_BASE = [
     {
         id: "TC001",
@@ -9,7 +13,7 @@ const PRODUCTOS_BASE = [
         precio: 28990,
         stock: 10,
         stockCritico: 3,
-        imagen: "https://picsum.photos/600/400?random=11"
+        imagen: "assets/img/torta-chocolate.jpg"
     },
     {
         id: "TT001",
@@ -19,7 +23,7 @@ const PRODUCTOS_BASE = [
         precio: 32990,
         stock: 8,
         stockCritico: 2,
-        imagen: "https://picsum.photos/600/400?random=12"
+        imagen: "assets/img/torta-frutas.jpg"
     },
     {
         id: "PI001",
@@ -29,7 +33,7 @@ const PRODUCTOS_BASE = [
         precio: 4990,
         stock: 20,
         stockCritico: 5,
-        imagen: "https://picsum.photos/600/400?random=13"
+        imagen: "assets/img/cupcake.jpg"
     },
     {
         id: "TC002",
@@ -39,7 +43,7 @@ const PRODUCTOS_BASE = [
         precio: 24990,
         stock: 5,
         stockCritico: 3,
-        imagen: "https://picsum.photos/600/400?random=14"
+        imagen: "assets/img/torta-frutas.jpg"
     },
     {
         id: "TT002",
@@ -49,7 +53,7 @@ const PRODUCTOS_BASE = [
         precio: 29990,
         stock: 7,
         stockCritico: 2,
-        imagen: "https://picsum.photos/600/400?random=15"
+        imagen: "assets/img/torta-manjar.jpg"
     },
     {
         id: "PI002",
@@ -59,63 +63,150 @@ const PRODUCTOS_BASE = [
         precio: 3990,
         stock: 25,
         stockCritico: 5,
-        imagen: "https://picsum.photos/600/400?random=16"
+        imagen: "assets/img/cupcake.jpg"
     }
 ];
 
 const STORAGE_PRODUCTOS = "mil_sabores_productos";
-
 const STORAGE_CARRITO = "mil_sabores_carrito";
-
 const STORAGE_USUARIOS = "mil_sabores_usuarios";
-
 const STORAGE_RESENAS = "mil_sabores_resenas";
 
+
+/* =========================================================
+   PRODUCTOS
+   ========================================================= */
+
 function obtenerProductos() {
-    const guardados = localStorage.getItem(STORAGE_PRODUCTOS);
-    if (!guardados) {
-        localStorage.setItem(STORAGE_PRODUCTOS, JSON.stringify(PRODUCTOS_BASE));
-        return [...PRODUCTOS_BASE];
-    }
+
+    let productos;
+
     try {
-        return JSON.parse(guardados);
+        const guardados = localStorage.getItem(STORAGE_PRODUCTOS);
+
+        if (!guardados) {
+            productos = [...PRODUCTOS_BASE];
+
+        } else {
+            productos = JSON.parse(guardados);
+
+            if (!Array.isArray(productos)) {
+                productos = [...PRODUCTOS_BASE];
+            }
+        }
+
     } catch {
-        localStorage.setItem(STORAGE_PRODUCTOS, JSON.stringify(PRODUCTOS_BASE));
-        return [...PRODUCTOS_BASE];
+        productos = [...PRODUCTOS_BASE];
     }
+
+    /*
+     * Si existían productos antiguos con imágenes de Picsum,
+     * los reemplazamos por las imágenes reales de /assets/img.
+     */
+    productos = productos.map(producto => {
+
+        const base = PRODUCTOS_BASE.find(p => p.id === producto.id);
+
+        if (base) {
+
+            if (
+                !producto.imagen ||
+                producto.imagen.includes("picsum.photos")
+            ) {
+                producto.imagen = base.imagen;
+            }
+        }
+
+        return producto;
+    });
+
+    localStorage.setItem(
+        STORAGE_PRODUCTOS,
+        JSON.stringify(productos)
+    );
+
+    return productos;
 }
+
 
 function guardarProductos(productos) {
-    localStorage.setItem(STORAGE_PRODUCTOS, JSON.stringify(productos));
+
+    localStorage.setItem(
+        STORAGE_PRODUCTOS,
+        JSON.stringify(productos)
+    );
 }
 
+
+/* =========================================================
+   CARRITO
+   ========================================================= */
+
 function obtenerCarrito() {
+
     try {
-        return JSON.parse(localStorage.getItem(STORAGE_CARRITO)) || [];
+
+        return JSON.parse(
+            localStorage.getItem(STORAGE_CARRITO)
+        ) || [];
+
     } catch {
+
         return [];
     }
 }
 
+
 function guardarCarrito(carrito) {
-    localStorage.setItem(STORAGE_CARRITO, JSON.stringify(carrito));
+
+    localStorage.setItem(
+        STORAGE_CARRITO,
+        JSON.stringify(carrito)
+    );
+
     actualizarContadorCarrito();
 }
 
+
 function actualizarContadorCarrito() {
-    const cantidad = obtenerCarrito().reduce((total, item) => total + Number(item.cantidad), 0);
-    document.querySelectorAll("#cart-count").forEach(el => el.textContent = cantidad);
+
+    const cantidad = obtenerCarrito().reduce(
+        (total, item) =>
+            total + Number(item.cantidad || 0),
+        0
+    );
+
+    document
+        .querySelectorAll("#cart-count")
+        .forEach(elemento => {
+            elemento.textContent = cantidad;
+        });
 }
+
+
+/* =========================================================
+   FORMATO DE PRECIO
+   ========================================================= */
 
 function formatoPrecio(valor) {
-    return Number(valor).toLocaleString("es-CL", {
-        style: "currency",
-        currency: "CLP",
-        maximumFractionDigits: 0
-    });
+
+    return Number(valor).toLocaleString(
+        "es-CL",
+        {
+            style: "currency",
+            currency: "CLP",
+            maximumFractionDigits: 0
+        }
+    );
 }
 
+
+/* =========================================================
+   SEGURIDAD HTML
+   ========================================================= */
+
 function escaparHTML(texto) {
+
     return String(texto)
         .replaceAll("&", "&amp;")
         .replaceAll("<", "&lt;")
@@ -123,3 +214,58 @@ function escaparHTML(texto) {
         .replaceAll('"', "&quot;")
         .replaceAll("'", "&#039;");
 }
+
+
+/* =========================================================
+   INICIALIZACIÓN GENERAL
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    actualizarContadorCarrito();
+
+    if (typeof renderProductos === "function") {
+        renderProductos("TODOS");
+    }
+
+    if (typeof renderCarrito === "function") {
+        renderCarrito();
+    }
+
+    if (typeof configurarCupon === "function") {
+        configurarCupon();
+    }
+
+    if (typeof configurarPago === "function") {
+        configurarPago();
+    }
+
+    if (typeof renderDetalle === "function") {
+        renderDetalle();
+    }
+
+    if (typeof configurarLogin === "function") {
+        configurarLogin();
+    }
+
+    if (typeof configurarRegistro === "function") {
+        configurarRegistro();
+    }
+
+    if (typeof configurarContacto === "function") {
+        configurarContacto();
+    }
+
+    if (typeof configurarAdminProductos === "function") {
+        configurarAdminProductos();
+    }
+
+    if (typeof configurarAdminUsuarios === "function") {
+        configurarAdminUsuarios();
+    }
+
+    if (typeof configurarMenuAccesible === "function") {
+        configurarMenuAccesible();
+    }
+
+});
