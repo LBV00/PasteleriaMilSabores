@@ -415,37 +415,6 @@ Además, el área administrativa posee sus propias vistas y navegación.
 
 ------------------------------------------------------------------------
 
-## 🧪 Estado actual del proyecto
-
-| Funcionalidad            | Estado |
-|--------------------------|:------:|
-| Estructura HTML5         |   🟢   |
-| Navegación entre páginas |   🟢   |
-| CSS externo              |   🟢   |
-| Diseño responsive        |   🟢   |
-| Imágenes locales         |   🟢   |
-| Catálogo de productos    |   🟡   |
-| Detalle de producto      |   🟡   |
-| Carrito                  |   🟡   |
-| Registro                 |   🟡   |
-| Inicio de sesión         |   🟡   |
-| Validaciones JavaScript  |   🟡   |
-| Contacto                 |   🟡   |
-| Reseñas                  |   🟡   |
-| Modo usuario             |   🟡   |
-| Modo administrador       |   🟡   |
-| Gestión de productos     |   🟡   |
-| Gestión de usuarios      |   🟡   |
-| GitHub / colaboración    |   🟢   |
-| Documentación README     |   🟢   |
-
-**Leyenda:**
-
-- 🟢 Implementado / disponible.
-- 🟡 En desarrollo o pendiente de integración.
-- 🔴 No implementado.
-
-------------------------------------------------------------------------
 
 ## 📋 Relación con la Evaluación Parcial 1
 
