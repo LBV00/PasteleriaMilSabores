@@ -64,6 +64,46 @@ const PRODUCTOS_BASE = [
         stock: 25,
         stockCritico: 5,
         imagen: "assets/img/cupcake.jpg"
+    },
+    {
+        id: "TC003",
+        nombre: "Kuchen de Manzana",
+        categoria: "TC",
+        descripcion: "Kuchen artesanal con finas láminas de manzana caramelizada, canela y base crujiente al estilo sureño.",
+        precio: 22990,
+        stock: 6,
+        stockCritico: 2,
+        imagen: "assets/img/kuchen-manzana.png"
+    },
+    {
+        id: "PI003",
+        nombre: "Trufas de Chocolate",
+        categoria: "PI",
+        descripcion: "Caja de 6 trufas artesanales de chocolate amargo con distintos rellenos gourmet.",
+        precio: 8990,
+        stock: 15,
+        stockCritico: 4,
+        imagen: "assets/img/trufas-chocolate.png"
+    },
+    {
+        id: "TT003",
+        nombre: "Milhojas de Manjar",
+        categoria: "TT",
+        descripcion: "Torta de hojaldre crujiente con capas de manjar blanco y crema chantilly, esencia de la pastelería chilena.",
+        precio: 27990,
+        stock: 9,
+        stockCritico: 2,
+        imagen: "assets/img/milhojas-manjar.png"
+    },
+    {
+        id: "PI004",
+        nombre: "Cupcakes de Frutilla",
+        categoria: "PI",
+        descripcion: "Pack de 4 cupcakes de vainilla con frosting de frutilla y decoración artesanal. Perfectos para celebrar.",
+        precio: 7490,
+        stock: 18,
+        stockCritico: 5,
+        imagen: "assets/img/cupcakes-frutilla.png"
     }
 ];
 
@@ -118,6 +158,17 @@ function obtenerProductos() {
         }
 
         return producto;
+    });
+
+    /*
+     * Agrega los productos nuevos de PRODUCTOS_BASE que aún no
+     * estén en la lista guardada (para que aparezcan al actualizar).
+     */
+    PRODUCTOS_BASE.forEach(base => {
+        const existe = productos.some(p => p.id === base.id);
+        if (!existe) {
+            productos.push({ ...base });
+        }
     });
 
     localStorage.setItem(
