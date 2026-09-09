@@ -469,6 +469,7 @@ index.html
 ```
 
 También se recomienda utilizar **Visual Studio Code**
+
 ------------------------------------------------------------------------
 
 ## 📜 Licencia
@@ -476,3 +477,9 @@ También se recomienda utilizar **Visual Studio Code**
 Proyecto académico desarrollado para **Duoc UC**.
 
 Uso destinado a fines educativos y de evaluación.
+
+------------------------------------------------------------------------
+
+## 🤖 Declaración de IA
+
+En este proyecto se utilizaron herramientas de Inteligencia Artificial exclusivamente como apoyo para agilizar el desarrollo, resolver dudas y optimizar procesos. Toda la lógica principal, la arquitectura y la revisión final del código fueron realizadas con criterio humano.
