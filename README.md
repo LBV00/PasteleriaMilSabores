@@ -30,10 +30,6 @@ utilizando:
   interfaz.
 - **Git y GitHub** para el control de versiones y trabajo colaborativo.
 
-El proyecto se encuentra en desarrollo, por lo que algunas
-funcionalidades pueden estar pendientes de implementación o ajuste. Este
-README se mantendrá actualizado a medida que avance el proyecto.
-
 ------------------------------------------------------------------------
 
 ## 🎯 Objetivos
@@ -222,10 +218,6 @@ Actualmente se consideran las siguientes vistas:
 - Identificación de stock crítico.
 - Formularios para crear y modificar productos.
 
-> **Estado:** esta sección continúa en desarrollo. La lógica de acceso y
-> algunas funcionalidades se terminarán durante la implementación de la
-> aplicación.
-
 ------------------------------------------------------------------------
 
 ## 👥 Modo usuario
@@ -243,9 +235,6 @@ navegación por la tienda.
 - Revisión del carrito.
 - Uso de formularios de contacto.
 - Interacción con reseñas cuando corresponda.
-
-> **Estado:** funcionalidad en desarrollo y pendiente de integración
-> completa entre las distintas páginas.
 
 ------------------------------------------------------------------------
 
