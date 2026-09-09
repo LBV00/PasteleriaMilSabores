@@ -372,7 +372,6 @@ pantalla mediante:
 
 - Bootstrap.
 - Clases responsive.
-- Flexbox y Grid cuando corresponde.
 - Contenedores fluidos.
 - Imágenes adaptables.
 - Distribución responsive de tarjetas y elementos de navegación.
@@ -415,70 +414,13 @@ Además, el área administrativa posee sus propias vistas y navegación.
 
 ------------------------------------------------------------------------
 
-
-## 📋 Relación con la Evaluación Parcial 1
-
-El proyecto se desarrolla considerando los indicadores establecidos para
-**DSY1104 Desarrollo FullStack II**.
-
-### IE1.1.1 — HTML y contenido web
-
-Se trabaja con:
-
-- Estructura HTML5.
-- Elementos semánticos.
-- Hipervínculos.
-- Imágenes.
-- Botones.
-- Elementos de navegación.
-- Formularios.
-- Footer.
-- Contenido multimedia cuando corresponda al alcance final.
-
-### IE1.1.2 — CSS personalizado
-
-Se utiliza una hoja CSS externa para mantener los estilos separados del
-HTML y facilitar el mantenimiento.
-
-### IE1.2.1 — Validaciones JavaScript
-
-Se implementan validaciones mediante JavaScript, junto con sugerencias y
-mensajes de error personalizados.
-
-### IE1.3.1 — Repositorio colaborativo
-
-El proyecto se mantiene en un repositorio remoto y se trabaja mediante
-cambios registrados y distribuidos entre los integrantes.
-
-### IE1.1.3 — Explicación de HTML
-
-Durante la presentación se explicará el uso de HTML5 y la importancia de
-utilizar una estructura semántica correcta.
-
-### IE1.1.4 — Explicación de CSS
-
-Se explicará cómo los estilos externos permiten construir una interfaz
-consistente y facilitan el mantenimiento.
-
-### IE1.2.2 — Demostración de JavaScript
-
-Durante la presentación se demostrará el funcionamiento de las
-validaciones, sugerencias y mensajes personalizados.
-
-### IE1.3.2 — Justificación del trabajo colaborativo
-
-Se explicará la importancia de utilizar GitHub, mantener commits
-coherentes y distribuir las tareas dentro del equipo.
-
-------------------------------------------------------------------------
-
 ## 👨‍💻 Equipo de desarrollo
 
 **Pastelería Mil Sabores** fue desarrollada por:
 
-- **Martín Lara**
-- **Martín Reyes**
-- **Diego Adán**
+- **Diego Berrios**
+- **Luca Buitano**
+- **Valentina Osses**
 
 El trabajo se distribuye entre los integrantes y los cambios se integran
 al repositorio del proyecto.
@@ -510,16 +452,6 @@ Integración de cambios
 Se busca utilizar mensajes de commit claros y relacionados directamente
 con el cambio realizado.
 
-Ejemplos:
-
-``` text
-feat: agregar validaciones al formulario de registro
-fix: corregir navegación del catálogo
-style: mejorar diseño de tarjetas de productos
-feat: implementar carrito de compras
-docs: actualizar README
-```
-
 ------------------------------------------------------------------------
 
 ## 🚀 Instalación y ejecución
@@ -530,7 +462,7 @@ no requiere instalar un servidor backend para visualizar sus páginas.
 ### 1. Clonar el repositorio
 
 ``` bash
-git clone https://github.com/LBV00/TrabajoFullstack1-barbershop.git
+git clone 
 ```
 
 ### 2. Ingresar a la carpeta
@@ -547,70 +479,7 @@ Abrir:
 index.html
 ```
 
-También se recomienda utilizar **Visual Studio Code** junto con una
-extensión como **Live Server** para ejecutar el proyecto durante el
-desarrollo.
-
-------------------------------------------------------------------------
-
-## 🔮 Próximas mejoras
-
-El proyecto continuará evolucionando después de esta primera entrega.
-
-Entre las mejoras planificadas se encuentran:
-
-- Finalizar el modo usuario.
-- Finalizar el modo administrador.
-- Integrar completamente el inicio de sesión con los roles definidos.
-- Completar el CRUD de productos.
-- Completar la gestión de usuarios.
-- Mejorar la persistencia de datos.
-- Completar las validaciones pendientes.
-- Revisar la navegación de todas las páginas.
-- Agregar y organizar productos definitivos.
-- Completar y revisar el contenido del blog.
-- Realizar pruebas generales antes de la presentación.
-- Mantener actualizada la documentación.
-
-------------------------------------------------------------------------
-
-## 📚 Contexto académico
-
-**Asignatura:** Desarrollo FullStack II  
-**Sigla:** DSY1104  
-**Evaluación:** Evaluación Parcial N.º 1  
-**Modalidad:** Entrega de encargo + presentación  
-**Proyecto:** Pastelería Mil Sabores
-
-La evaluación contempla una entrega grupal y una presentación
-individual. Por este motivo, además del funcionamiento del proyecto,
-cada integrante debe ser capaz de explicar las decisiones tomadas
-durante el desarrollo.
-
-------------------------------------------------------------------------
-
-## 📄 Documentación
-
-Documentos asociados al proyecto:
-
-- Especificación de Requisitos del Software (ERS).
-- Planilla de requerimientos.
-- Material de la Evaluación Parcial N.º 1.
-- Presentación del proyecto.
-- README del proyecto.
-
-------------------------------------------------------------------------
-
-## 📌 Nota de desarrollo
-
-Este proyecto se encuentra **activo y en desarrollo**. La documentación
-describe tanto las funcionalidades implementadas como aquellas
-planificadas para completar la aplicación.
-
-El objetivo es mantener este README actualizado junto con la evolución
-del proyecto, de manera que sirva como documentación técnica, guía de
-instalación y presentación general del sistema.
-
+También se recomienda utilizar **Visual Studio Code**
 ------------------------------------------------------------------------
 
 ## 📜 Licencia
