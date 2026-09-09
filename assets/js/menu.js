@@ -66,4 +66,26 @@ function configurarMenuAccesible() {
 
     }
 
+
+    /* ---------------------------------------------------------
+       Mostrar u ocultar el enlace "Panel Admin" en el menú
+       según si el usuario activo tiene rol "admin".
+       El enlace debe tener el id "nav-admin-link" en el HTML.
+       --------------------------------------------------------- */
+    const enlaceAdmin =
+        document.getElementById("nav-admin-link");
+
+    if (enlaceAdmin) {
+
+        const rolActual =
+            sessionStorage.getItem("mil_sabores_rol");
+
+        if (rolActual === "admin") {
+            enlaceAdmin.style.display = "";
+        } else {
+            enlaceAdmin.style.display = "none";
+        }
+
+    }
+
 }
