@@ -112,16 +112,39 @@ function validarFormulario(formulario) {
         }
     });
 
-    const run = formulario.querySelector("#usr-run");
+    /* Validar RUN chileno (acepta id="run" o id="usr-run") */
+    const run =
+        formulario.querySelector("#run") ||
+        formulario.querySelector("#usr-run");
+
     if (run && run.value.trim() && !validarRun(run.value)) {
-        mostrarError(run, "RUN inválido. Usa el formato sin puntos ni guion, por ejemplo 19011022K.");
+        mostrarError(run, "RUN inválido. Ingresa sin puntos ni guion, por ejemplo 19011022K.");
         valido = false;
     }
 
-    const password = formulario.querySelector("#login-pass");
-    if (password && password.value && (password.value.length < 4 || password.value.length > 10)) {
-        mostrarError(password, "La contraseña debe tener entre 4 y 10 caracteres.");
+    /* Validar contraseña de registro (id="password") */
+    const password =
+        formulario.querySelector("#password") ||
+        formulario.querySelector("#login-pass");
+
+    if (password && password.value && (password.value.length < 6 || password.value.length > 30)) {
+        mostrarError(password, "La contraseña debe tener entre 6 y 30 caracteres.");
         valido = false;
+    }
+
+    /* Validar fecha de nacimiento real */
+    const fechaNac = formulario.querySelector("#fechaNacimiento");
+    if (fechaNac && fechaNac.value) {
+        const nacimiento = new Date(fechaNac.value);
+        const hoy = new Date();
+        const minFecha = new Date("1900-01-01");
+        const maxFecha = new Date();
+        maxFecha.setFullYear(hoy.getFullYear() - 5);
+
+        if (nacimiento < minFecha || nacimiento > maxFecha) {
+            mostrarError(fechaNac, "Ingresa una fecha de nacimiento válida (debes tener al menos 5 años).");
+            valido = false;
+        }
     }
 
     const stock = formulario.querySelector("#prod-stock");

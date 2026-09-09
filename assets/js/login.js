@@ -71,36 +71,34 @@ function configurarLogin() {
             }
 
 
-            const usuarios =
-                JSON.parse(
-                    localStorage.getItem(
-                        "mil_sabores_usuarios"
-                    ) || "[]"
+            /* -----------------------------------------------
+               Usar auth.js si está disponible; de lo contrario
+               mantener el comportamiento anterior (demo).
+               ----------------------------------------------- */
+            let resultado;
+
+            if (typeof iniciarSesion === "function") {
+
+                resultado = iniciarSesion(
+                    correo.value,
+                    password.value.trim()
                 );
 
+            } else {
 
-            const usuario =
-                usuarios.find(
-                    u =>
-                        u.email ===
-                        correo.value
-                            .trim()
-                            .toLowerCase()
+                /* Fallback: comportamiento heredado */
+                sessionStorage.setItem(
+                    "mil_sabores_sesion",
+                    correo.value.trim().toLowerCase()
                 );
 
+                resultado = {
+                    ok:      true,
+                    rol:     "cliente",
+                    mensaje: "Sesión iniciada correctamente para la demostración frontend."
+                };
 
-            /*
-             * Si existe el usuario, iniciamos sesión.
-             * Para esta evaluación la autenticación
-             * se maneja como demostración frontend.
-             */
-
-            sessionStorage.setItem(
-                "mil_sabores_sesion",
-                correo.value
-                    .trim()
-                    .toLowerCase()
-            );
+            }
 
 
             if (
@@ -110,19 +108,27 @@ function configurarLogin() {
 
                 mostrarMensajeFormulario(
                     form,
-                    usuario
-                        ? "Inicio de sesión correcto."
-                        : "Sesión iniciada correctamente para la demostración frontend.",
+                    resultado.mensaje,
                     true
                 );
 
             } else {
 
-                alert(
-                    "Inicio de sesión correcto."
-                );
+                alert(resultado.mensaje);
 
             }
+
+
+            /* Redirigir según rol después de un breve instante */
+            setTimeout(() => {
+
+                if (resultado.rol === "admin") {
+                    window.location.href = "admin-home.html";
+                } else {
+                    window.location.href = "index.html";
+                }
+
+            }, 1200);
 
         }
     );
