@@ -1,88 +1,305 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="utf-8"/>
-        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-        <title>Nosotros - Pastelería Mil Sabores</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
-        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,400&family=Pacifico&display=swap" rel="stylesheet"/>
-        <link href="assets/css/estilos.css" rel="stylesheet"/>
-    </head>
-    <body class="d-flex flex-column min-vh-100">
-        <header class="menu-pasteleria shadow-sm">
-            <nav aria-label="Navegación principal" class="navbar navbar-expand-lg navbar-dark container">
-                <div class="container-fluid">
-                    <a class="navbar-brand brand-title" href="index.html">🍰 Mil Sabores</a>
-                    <button aria-controls="navPrincipal" aria-expanded="false" aria-label="Abrir menú de navegación" class="navbar-toggler" data-bs-target="#navPrincipal" data-bs-toggle="collapse" type="button">
-                        <span class="navbar-toggler-icon">
-                        </span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navPrincipal">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                            <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
-                            <li class="nav-item"><a class="nav-link" href="productos.html">Productos</a></li>
-                            <li class="nav-item"><a aria-current="page" class="nav-link active" href="nosotros.html">Nosotros</a></li>
-                            <li class="nav-item"><a class="nav-link" href="blogs.html">Blogs</a></li>
-                            <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
-                        </ul>
-                        <div class="d-flex align-items-center gap-2 header-actions">
-                            <a class="btn btn-outline-light btn-sm" href="login.html">Iniciar Sesión</a>
-                            <a class="btn btn-light btn-sm text-primary fw-bold" href="registro.html">Crear Cuenta</a>
-                            <a class="text-white text-decoration-none fw-bold position-relative" href="carrito-vista.html">
-                                🛒 Carrito (
-                                <span class="badge bg-danger rounded-pill" id="cart-count">0</span>
-                                )
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Nosotros - Pastelería Mil Sabores</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Pacifico&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="assets/css/estilos.css">
+
+</head>
+
+
+<body class="d-flex flex-column min-vh-100">
+
+
+    <!-- HEADER -->
+
+    <header class="menu-pasteleria shadow-sm">
+
+        <nav class="navbar navbar-expand-lg navbar-dark container">
+
+            <div class="container-fluid">
+
+                <a class="navbar-brand brand-title" href="index.html">
+                    🍰 Mil Sabores
+                </a>
+
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navPrincipal"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+
+                <div class="collapse navbar-collapse" id="navPrincipal">
+
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">
+                                Inicio
                             </a>
-                        </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="productos.html">
+                                Productos
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link active" href="nosotros.html">
+                                Nosotros
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="blogs.html">
+                                Blogs
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="contacto.html">
+                                Contacto
+                            </a>
+                        </li>
+
+                    </ul>
+
+
+                    <div class="d-flex align-items-center gap-2">
+
+                        <a
+                            class="btn btn-outline-light btn-sm"
+                            href="login.html"
+                        >
+                            Iniciar Sesión
+                        </a>
+
+                        <a
+                            class="btn btn-light btn-sm text-primary fw-bold"
+                            href="registro.html"
+                        >
+                            Crear Cuenta
+                        </a>
+
+                        <a
+                            href="carrito-vista.html"
+                            class="text-white text-decoration-none fw-bold"
+                        >
+                            🛒 Carrito
+                            (
+                            <span
+                                id="cart-count"
+                                class="badge bg-danger rounded-pill"
+                            >
+                                0
+                            </span>
+                            )
+                        </a>
+
                     </div>
+
                 </div>
-            </nav>
-        </header>
-        <main class="container my-5 flex-grow-1">
-            <section class="row align-items-center py-4 mb-5">
-                <div class="col-md-6">
-                    <h1 class="display-4 fw-bold heading-pacific text-dark-brown">La Receta del Éxito</h1>
-                    <article class="extracto-empresa my-3 p-4">
-                        <p class="mb-0">Fundada en 1982 por la abuela Eliana en el sur de Chile, Pastelería Mil Sabores nació con un claro objetivo: llevar la felicidad a los hogares chilenos a través de pasteles que combinan técnicas tradicionales francesas con ingredientes endémicos y orgánicos locales.</p>
-                    </article>
-                </div>
-                <div class="col-md-6 text-center">
-                    <img alt="Preparación" class="img-fluid rounded-4 shadow" src="https://picsum.photos/600/400?random=baking"/>
-                </div>
-            </section>
-            <hr class="my-5"/>
-            <!-- EQUIPO DE DESARROLLO (Requerimiento de la pauta) -->
-            <section class="my-5">
-                <h2 class="text-center mb-5 fw-bold heading-pacific text-dark-brown">Equipo de Ingeniería</h2>
-                <div class="row justify-content-center g-4">
-                    <div class="col-md-4 text-center">
-                        <div class="card p-4 border-0 shadow-sm rounded-4 bg-light">
-                            <img alt="Developer" class="rounded-circle mx-auto mb-3" src="https://picsum.photos/120/120?random=1"/>
-                            <h5 class="fw-bold">Integrante 1</h5>
-                            <p class="text-danger fw-semibold">Ingeniero Frontend</p>
-                            <p class="small text-muted mb-0">Técnico Analista Programador - Duoc UC</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4 text-center">
-                        <div class="card p-4 border-0 shadow-sm rounded-4 bg-light">
-                            <img alt="Developer" class="rounded-circle mx-auto mb-3" src="https://picsum.photos/120/120?random=2"/>
-                            <h5 class="fw-bold">Integrante 2</h5>
-                            <p class="text-danger fw-semibold">Especialista QA & UI</p>
-                            <p class="small text-muted mb-0">Técnico Analista Programador - Duoc UC</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
-        <footer class="footer-pasteleria py-4 mt-auto text-white">
-            <div class="container text-center">
-                <p class="mb-1">© 2026 Pastelería Mil Sabores. Tradición y sabor en tu mesa.</p>
-                <p class="small mb-0">Proyecto académico · DSY1104 Duoc UC</p>
+
             </div>
-        </footer>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
-        </script>
+
+        </nav>
+
+    </header>
+
+
+    <!-- CONTENIDO -->
+
+    <main class="container flex-grow-1 py-5">
+
+
+        <!-- HISTORIA -->
+
+        <section class="row align-items-center py-5">
+
+            <div class="col-lg-6">
+
+                <p class="text-uppercase small">
+                    Nuestra historia
+                </p>
+
+                <h1 class="display-3 fw-bold heading-pacific text-dark-brown">
+                    La Receta del Éxito
+                </h1>
+
+                <article class="extracto-empresa p-4 mt-4">
+
+                    <p class="mb-0">
+                        Fundada en 1982 por la abuela Eliana en el sur
+                        de Chile, Pastelería Mil Sabores nació con un
+                        claro objetivo: llevar la felicidad a los hogares
+                        chilenos a través de pasteles que combinan
+                        técnicas tradicionales francesas con ingredientes
+                        locales.
+                    </p>
+
+                </article>
+
+            </div>
+
+
+            <div class="col-lg-6 text-center mt-4 mt-lg-0">
+
+                <img
+                    src="assets/img/historia.jpg"
+                    alt="Preparación artesanal de productos de Pastelería Mil Sabores"
+                    class="img-fluid rounded-4 shadow-lg"
+                >
+
+            </div>
+
+        </section>
+
+
+        <hr class="my-5">
+
+
+        <!-- EQUIPO -->
+
+        <section class="text-center py-4">
+
+            <p class="text-uppercase small">
+                Conoce a nuestro equipo
+            </p>
+
+            <h2 class="display-6 fw-bold heading-pacific text-dark-brown">
+                Equipo de Ingeniería
+            </h2>
+
+
+            <div class="row justify-content-center g-4 mt-4">
+
+
+                <!-- INTEGRANTE 1 -->
+
+                <div class="col-md-5">
+
+                    <article class="card border-0 shadow-sm rounded-4 h-100">
+
+                        <div class="card-body p-4">
+
+                            <img
+                                src="assets/img/historia.jpg"
+                                alt="Integrante del equipo de desarrollo"
+                                class="rounded-circle mb-3"
+                                width="120"
+                                height="120"
+                                style="object-fit: cover;"
+                            >
+
+                            <h3 class="h4 fw-bold">
+                                Integrante 1
+                            </h3>
+
+                            <p class="text-danger fw-bold">
+                                Ingeniero Frontend
+                            </p>
+
+                            <p class="small text-muted">
+                                Técnico Analista Programador · Duoc UC
+                            </p>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+
+                <!-- INTEGRANTE 2 -->
+
+                <div class="col-md-5">
+
+                    <article class="card border-0 shadow-sm rounded-4 h-100">
+
+                        <div class="card-body p-4">
+
+                            <img
+                                src="assets/img/historia.jpg"
+                                alt="Integrante del equipo de desarrollo"
+                                class="rounded-circle mb-3"
+                                width="120"
+                                height="120"
+                                style="object-fit: cover;"
+                            >
+
+                            <h3 class="h4 fw-bold">
+                                Integrante 2
+                            </h3>
+
+                            <p class="text-danger fw-bold">
+                                Especialista QA & UI
+                            </p>
+
+                            <p class="small text-muted">
+                                Técnico Analista Programador · Duoc UC
+                            </p>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer-pasteleria py-4 mt-auto text-white">
+
+        <div class="container text-center">
+
+            <p class="mb-1">
+                © 2026 Pastelería Mil Sabores.
+                Tradición y sabor en tu mesa.
+            </p>
+
+            <p class="small mb-0">
+                Proyecto académico · DSY1104 Duoc UC
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    ></script>
+
     <script src="assets/js/app.js"></script>
+    <script src="assets/js/carrito.js"></script>
     <script src="assets/js/menu.js"></script>
+
 </body>
+
 </html>
