@@ -1,0 +1,390 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Pacifico&display=swap');
+
+:root {
+    --crema: #fff8f0;
+    --crema-claro: #fffdf9;
+    --chocolate: #5d3028;
+    --chocolate-oscuro: #3f211c;
+    --rosa: #f6b5b8;
+    --rosa-claro: #fde2e2;
+    --rojo: #df3948;
+    --rojo-oscuro: #c52d3c;
+    --texto: #3f3532;
+    --gris: #756d69;
+    --blanco: #ffffff;
+    --sombra: 0 12px 35px rgba(93, 48, 40, 0.12);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background-color: var(--crema);
+    color: var(--texto);
+    font-family: 'Lato', sans-serif;
+}
+
+a {
+    transition: all 0.25s ease;
+}
+
+h1,
+h2,
+h3,
+h4,
+.heading-pacific {
+    font-family: 'Pacifico', cursive;
+    color: var(--chocolate);
+}
+
+p {
+    line-height: 1.7;
+}
+
+
+/* =========================
+   NAVBAR
+   ========================= */
+
+.menu-pasteleria {
+    background: linear-gradient(
+        90deg,
+        #60382f,
+        #70473b
+    );
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.menu-pasteleria .navbar {
+    min-height: 72px;
+}
+
+.brand-title {
+    font-family: 'Pacifico', cursive;
+    font-size: 1.7rem;
+    color: #ffffff !important;
+    white-space: nowrap;
+}
+
+.brand-title:hover {
+    color: var(--rosa-claro) !important;
+}
+
+.menu-pasteleria .nav-link {
+    color: rgba(255, 255, 255, 0.78) !important;
+    font-weight: 400;
+    margin: 0 3px;
+    padding: 10px 12px !important;
+    border-radius: 8px;
+}
+
+.menu-pasteleria .nav-link:hover,
+.menu-pasteleria .nav-link.active {
+    color: #ffffff !important;
+    background-color: rgba(255, 255, 255, 0.10);
+}
+
+.header-actions {
+    white-space: nowrap;
+}
+
+.header-actions .btn {
+    border-radius: 8px;
+}
+
+
+/* =========================
+   BOTONES
+   ========================= */
+
+.btn-danger {
+    background-color: var(--rojo);
+    border-color: var(--rojo);
+}
+
+.btn-danger:hover {
+    background-color: var(--rojo-oscuro);
+    border-color: var(--rojo-oscuro);
+    transform: translateY(-2px);
+}
+
+.btn {
+    transition: all 0.25s ease;
+}
+
+.btn:hover {
+    box-shadow: 0 7px 18px rgba(93, 48, 40, 0.16);
+}
+
+
+/* =========================
+   HOME / HERO
+   ========================= */
+
+main.container {
+    max-width: 1200px;
+}
+
+main > section:first-child {
+    padding-top: 55px !important;
+    padding-bottom: 45px !important;
+}
+
+main > section:first-child h1 {
+    font-size: clamp(3rem, 5vw, 4.5rem);
+    line-height: 1.1;
+    margin-bottom: 18px;
+}
+
+main > section:first-child .text-muted {
+    color: var(--chocolate) !important;
+    letter-spacing: 0.5px;
+}
+
+.extracto-empresa {
+    background-color: var(--blanco);
+    border-left: 5px solid var(--rojo);
+    border-radius: 15px;
+    box-shadow: var(--sombra);
+    color: var(--texto);
+    max-width: 590px;
+}
+
+.extracto-empresa p {
+    margin: 0;
+}
+
+.hero-imagen {
+    width: 100%;
+    height: 410px;
+    object-fit: cover;
+    border-radius: 22px !important;
+    box-shadow: 0 20px 45px rgba(93, 48, 40, 0.18) !important;
+}
+
+main > section:first-child .btn {
+    border-radius: 10px;
+    padding: 13px 28px;
+    font-size: 1.05rem;
+}
+
+
+/* =========================
+   SEPARADORES
+   ========================= */
+
+main > hr {
+    border-color: rgba(93, 48, 40, 0.20);
+    opacity: 1;
+}
+
+
+/* =========================
+   ESPECIALIDADES
+   ========================= */
+
+main section.my-5:nth-of-type(2) {
+    padding-bottom: 40px;
+}
+
+main section.my-5:nth-of-type(2) > div:first-child h2 {
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    margin-bottom: 10px;
+}
+
+main section.my-5:nth-of-type(2) > div:first-child p {
+    color: var(--gris) !important;
+    font-size: 1.05rem;
+}
+
+#productos-destacados {
+    margin-top: 30px;
+}
+
+
+/* =========================
+   TARJETAS DE PRODUCTOS
+   ========================= */
+
+.producto-card {
+    background-color: var(--blanco);
+    border-radius: 18px !important;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(93, 48, 40, 0.09) !important;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.producto-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 18px 35px rgba(93, 48, 40, 0.16) !important;
+}
+
+.producto-card .card-img-top {
+    height: 220px;
+    object-fit: cover;
+    background-color: var(--rosa-claro);
+}
+
+.producto-card .card-body {
+    padding: 22px !important;
+}
+
+.producto-card h3 {
+    font-family: 'Lato', sans-serif;
+    color: var(--chocolate);
+    font-weight: 700;
+}
+
+.producto-card .badge {
+    background-color: var(--rosa-claro) !important;
+    color: var(--chocolate) !important;
+    font-weight: 700;
+    padding: 7px 10px;
+    border-radius: 20px;
+}
+
+.producto-card .text-danger {
+    color: var(--rojo) !important;
+}
+
+.producto-card .btn {
+    border-radius: 8px;
+}
+
+
+/* =========================
+   VIDEO
+   ========================= */
+
+.video-card {
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: var(--blanco);
+    border-radius: 20px;
+    box-shadow: var(--sombra);
+}
+
+.video-card h2 {
+    font-size: 2.4rem;
+}
+
+.video-card iframe,
+.video-card video {
+    display: block;
+    width: 100%;
+    min-height: 480px;
+    border: 0;
+    border-radius: 15px;
+}
+
+
+/* =========================
+   FOOTER
+   ========================= */
+
+.footer-pasteleria {
+    background: linear-gradient(
+        90deg,
+        #4a2822,
+        #60382f
+    );
+    margin-top: 70px;
+}
+
+.footer-pasteleria p {
+    margin-bottom: 5px;
+}
+
+
+/* =========================
+   FORMULARIOS
+   ========================= */
+
+.form-control,
+.form-select {
+    border: 1px solid #dfd0ca;
+    border-radius: 9px;
+    padding: 11px 13px;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--rosa);
+    box-shadow: 0 0 0 0.2rem rgba(246, 181, 184, 0.25);
+}
+
+.form-label {
+    color: var(--chocolate);
+    font-weight: 700;
+}
+
+
+/* =========================
+   ADMINISTRACIÓN
+   ========================= */
+
+.admin-body {
+    background-color: var(--crema);
+}
+
+.admin-stat,
+.admin-card {
+    background-color: var(--blanco);
+    border-radius: 16px;
+    box-shadow: var(--sombra);
+}
+
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 991px) {
+
+    .header-actions {
+        margin-top: 12px;
+        padding-bottom: 10px;
+    }
+
+    main > section:first-child {
+        padding-top: 35px !important;
+    }
+
+    .hero-imagen {
+        height: 350px;
+        margin-top: 15px;
+    }
+}
+
+@media (max-width: 767px) {
+
+    main > section:first-child h1 {
+        font-size: 2.8rem;
+    }
+
+    .hero-imagen {
+        height: 280px;
+    }
+
+    .extracto-empresa {
+        padding: 20px !important;
+    }
+
+    .producto-card .card-img-top {
+        height: 240px;
+    }
+
+    .video-card iframe,
+    .video-card video {
+        min-height: 300px;
+    }
+}
