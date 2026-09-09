@@ -51,6 +51,15 @@ function iniciarSesion(emailRaw, password) {
 
     const email = emailRaw.trim().toLowerCase();
 
+    /* Validar formato básico de correo */
+    if (!email || !password) {
+        return {
+            ok:      false,
+            rol:     null,
+            mensaje: "Ingresa correo y contraseña."
+        };
+    }
+
     /* — Verificar administrador predefinido — */
     if (
         email    === ADMIN_EMAIL &&
@@ -76,24 +85,48 @@ function iniciarSesion(emailRaw, password) {
         u => u.email === email
     );
 
-    if (usuario) {
-        sessionStorage.setItem(STORAGE_SESION, email);
-        sessionStorage.setItem(STORAGE_ROL,    "cliente");
-        return { ok: true, rol: "cliente", mensaje: "Inicio de sesión correcto." };
+    /* Usuario no existe */
+    if (!usuario) {
+        return {
+            ok:      false,
+            rol:     null,
+            mensaje: "El correo ingresado no está registrado."
+        };
+    }
+
+    /* Contraseña incorrecta */
+    if (usuario.password !== password) {
+        return {
+            ok:      false,
+            rol:     null,
+            mensaje: "La contraseña ingresada es incorrecta."
+        };
     }
 
     /*
-     * Demo frontend: si el correo no coincide con ningún
-     * usuario registrado se permite igual (comportamiento
-     * heredado), pero se trata como cliente.
+     * Usuario existe y contraseña correcta.
+     * Usar el rol real guardado al registrarse.
+     * Los roles guardados pueden ser "Administrador", "Cliente", "Vendedor".
+     * Normalizamos para uso interno: admin / vendedor / cliente.
      */
+    const rolRaw = (usuario.rol || "Cliente").trim();
+    let rolInterno;
+
+    if (rolRaw.toLowerCase() === "administrador") {
+        rolInterno = "admin";
+    } else if (rolRaw.toLowerCase() === "vendedor") {
+        rolInterno = "vendedor";
+    } else {
+        rolInterno = "cliente";
+    }
+
     sessionStorage.setItem(STORAGE_SESION, email);
-    sessionStorage.setItem(STORAGE_ROL,    "cliente");
+    sessionStorage.setItem(STORAGE_ROL,    rolInterno);
 
     return {
         ok:      true,
-        rol:     "cliente",
-        mensaje: "Sesión iniciada correctamente para la demostración frontend."
+        rol:     rolInterno,
+        mensaje: "Inicio de sesión correcto. Bienvenido/a."
     };
 
 }

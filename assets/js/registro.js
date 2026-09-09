@@ -308,35 +308,16 @@ function configurarRegistro() {
 
             mostrarMensajeFormulario(
                 form,
-                "Cuenta creada correctamente. ¡Bienvenido/a a Mil Sabores! Redirigiendo...",
+                "Cuenta creada correctamente. ¡Bienvenido/a a Mil Sabores! Redirigiendo al inicio de sesión...",
                 true
             );
 
 
-            /* Iniciar sesión automáticamente */
-            if (typeof iniciarSesion === "function") {
-
-                iniciarSesion(
-                    usuario.email,
-                    document.getElementById("password").value
-                );
-
-            } else {
-
-                sessionStorage.setItem(
-                    "mil_sabores_sesion",
-                    usuario.email
-                );
-                sessionStorage.setItem(
-                    "mil_sabores_rol",
-                    "cliente"
-                );
-
-            }
-
+            /* No iniciar sesión automáticamente.
+               El usuario debe ir a login para autenticarse. */
 
             setTimeout(() => {
-                window.location.href = "index.html";
+                window.location.href = "login.html";
             }, 1500);
 
         }
