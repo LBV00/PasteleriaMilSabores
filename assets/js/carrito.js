@@ -419,8 +419,36 @@ function configurarPago() {
             }
 
 
+            /* -------------------------------------------------
+               Descontar stock de cada producto comprado
+               ------------------------------------------------- */
+            const productos = obtenerProductos();
+
+            carrito.forEach(item => {
+
+                const producto =
+                    productos.find(
+                        p => p.id === item.id
+                    );
+
+                if (producto) {
+
+                    producto.stock =
+                        Math.max(
+                            0,
+                            Number(producto.stock) -
+                            Number(item.cantidad)
+                        );
+
+                }
+
+            });
+
+            guardarProductos(productos);
+
+
             alert(
-                "Compra registrada correctamente."
+                "¡Compra registrada correctamente! Gracias por tu preferencia 🎂"
             );
 
 
