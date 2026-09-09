@@ -72,8 +72,9 @@ function configurarLogin() {
 
 
             /* -----------------------------------------------
-               Usar auth.js si está disponible; de lo contrario
-               mantener el comportamiento anterior (demo).
+               Llamar a iniciarSesion() de auth.js.
+               Si el usuario no existe o la contraseña es
+               incorrecta, mostrar error y NO redirigir.
                ----------------------------------------------- */
             let resultado;
 
@@ -86,21 +87,41 @@ function configurarLogin() {
 
             } else {
 
-                /* Fallback: comportamiento heredado */
-                sessionStorage.setItem(
-                    "mil_sabores_sesion",
-                    correo.value.trim().toLowerCase()
-                );
-
+                /* Fallback si auth.js no está cargado */
                 resultado = {
-                    ok:      true,
-                    rol:     "cliente",
-                    mensaje: "Sesión iniciada correctamente para la demostración frontend."
+                    ok:      false,
+                    rol:     null,
+                    mensaje: "Error de configuración: módulo de autenticación no disponible."
                 };
 
             }
 
 
+            /* Si el login falló, mostrar error y detener */
+            if (!resultado.ok) {
+
+                if (
+                    typeof mostrarMensajeFormulario ===
+                    "function"
+                ) {
+
+                    mostrarMensajeFormulario(
+                        form,
+                        resultado.mensaje
+                    );
+
+                } else {
+
+                    alert(resultado.mensaje);
+
+                }
+
+                return;
+
+            }
+
+
+            /* Login correcto: mostrar mensaje de éxito */
             if (
                 typeof mostrarMensajeFormulario ===
                 "function"

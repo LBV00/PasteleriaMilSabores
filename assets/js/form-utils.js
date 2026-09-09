@@ -127,9 +127,21 @@ function validarFormulario(formulario) {
         formulario.querySelector("#password") ||
         formulario.querySelector("#login-pass");
 
-    if (password && password.value && (password.value.length < 6 || password.value.length > 30)) {
-        mostrarError(password, "La contraseña debe tener entre 6 y 30 caracteres.");
+    if (password && password.value && (password.value.length < 4 || password.value.length > 10)) {
+        mostrarError(password, "La contraseña debe tener entre 4 y 10 caracteres.");
         valido = false;
+    }
+
+    /* Validar confirmación de contraseña (id="confirmarPassword") */
+    const confirmarPassword = formulario.querySelector("#confirmarPassword");
+    if (confirmarPassword && confirmarPassword.value !== undefined) {
+        if (password && confirmarPassword.value !== password.value) {
+            mostrarError(confirmarPassword, "Las contraseñas no coinciden.");
+            valido = false;
+        } else if (confirmarPassword.value.trim() === "" && confirmarPassword.required) {
+            mostrarError(confirmarPassword, "Este campo es obligatorio.");
+            valido = false;
+        }
     }
 
     /* Validar fecha de nacimiento real */
