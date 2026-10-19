@@ -1,485 +1,240 @@
-# 🍰 Pastelería Mil Sabores
+# 🍰 Pastelería Mil Sabores — Frontend SPA (Versión 2)
 
-<figure>
-<img src="assets/img/vitrina.jpg" alt="Pastelería Mil Sabores" />
-<figcaption aria-hidden="true">Pastelería Mil Sabores</figcaption>
-</figure>
+[![React](https://img.shields.io/badge/React-19.0.0-61DAFB?logo=react&logoColor=black)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Vite-6.3.1-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
+[![React Router](https://img.shields.io/badge/React_Router-7.18.4-CA4245?logo=react-router&logoColor=white)](https://reactrouter.com/)
+[![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3.8-7952B3?logo=bootstrap&logoColor=white)](https://getbootstrap.com/)
+[![Vitest](https://img.shields.io/badge/Vitest-5.0.5-6E9F18?logo=vitest&logoColor=white)](https://vitest.dev/)
+[![Coverage](https://img.shields.io/badge/Coverage-89.54%25_Lines-brightgreen)](./coverage/index.html)
+[![Institution](https://img.shields.io/badge/Duoc_UC-DSY1104-002B49)](https://www.duoc.cl/)
 
-> Sitio web para una tienda online de pastelería, desarrollado como
-> parte de la **Evaluación Parcial N.º 1 de Desarrollo FullStack II
-> (DSY1104)** en Duoc UC.
+Aplicación web de comercio electrónico tipo **Single Page Application (SPA)** desarrollada con **React 19**, **Vite 6** y **Bootstrap 5**, diseñada bajo la metodología **Atomic Design**. Proyecto desarrollado para la **Evaluación Parcial 2** de la asignatura **Desarrollo Fullstack II (DSY1104)** de la Escuela de Informática y Telecomunicaciones de **Duoc UC**.
 
-------------------------------------------------------------------------
+---
 
-## 📌 Descripción del proyecto
+## 📋 Tabla de Contenidos
 
-**Pastelería Mil Sabores** es una aplicación web frontend orientada a
-una pastelería y tienda online. El proyecto busca entregar una
-experiencia clara, atractiva y funcional para que los usuarios puedan
-conocer la marca, revisar productos, utilizar formularios y acceder a
-distintas funcionalidades del sitio.
+1. [Descripción General](#-descripción-general)
+2. [Características Principales](#-características-principales)
+3. [Arquitectura y Atomic Design](#-arquitectura-y-atomic-design)
+4. [Estructura del Proyecto](#-estructura-del-proyecto)
+5. [Instalación y Puesta en Marcha](#-instalación-y-puesta-en-marcha)
+6. [Pruebas Automatizadas y Cobertura (QA)](#-pruebas-automatizadas-y-cobertura-qa)
+7. [Modelo de Persistencia Local (LocalStorage)](#-modelo-de-persistencia-local-localstorage)
+8. [Mapa de Rutas (16 Rutas Reales)](#-mapa-de-rutas-16-rutas-reales)
+9. [Documentación de Entrega Oficial](#-documentación-de-entrega-oficial)
+10. [Información Académica](#-información-académica)
 
-Esta primera etapa se centra en construir las bases de la aplicación
-utilizando:
+---
 
-- **HTML5** para la estructura y semántica.
-- **CSS3** para el diseño y la presentación visual.
-- **JavaScript** para la interacción, validaciones y funcionalidades
-  dinámicas.
-- **Bootstrap 5** como apoyo para el diseño responsive y componentes de
-  interfaz.
-- **Git y GitHub** para el control de versiones y trabajo colaborativo.
+## 📖 Descripción General
 
-------------------------------------------------------------------------
+**Pastelería Mil Sabores** es una tienda virtual orientada a la difusión y comercialización de repostería artesanal tradicional chilena (alfajores de maicena, empolvados, brazo de reina, torta de milhojas) y pastelería fina contemporánea (cheesecakes, tartas, brownies, cupcakes).
 
-## 🎯 Objetivos
+La **Versión 2** moderniza integralmente el frontend respecto a la Evaluación Parcial 1, transformándolo en una SPA reactiva con 28 productos reales respaldados por fotografías locales de alta resolución, cálculo automático de ofertas, carrito de compras dinámico, checkout con validaciones de entrega, panel de administración con operaciones CRUD completas y una cobertura de pruebas automatizadas con Vitest superior al **89%**.
 
-### Objetivo general
+---
 
-Desarrollar una aplicación web frontend para **Pastelería Mil Sabores**,
-aplicando buenas prácticas de HTML5, CSS y JavaScript, junto con un
-flujo de trabajo colaborativo mediante Git y GitHub.
+## ✨ Características Principales
 
-### Objetivos específicos
+- 🎂 **Catálogo Ampliado (28 Productos):** Variedad gastronómica distribuida en 8 categorías con fotografías locales optimizadas en `public/images/productos/`.
+- 🔍 **Búsqueda y Filtros en Tiempo Real:** Búsqueda predictiva por texto libre (nombre y descripción) y filtrado interactivo por categorías.
+- 🏷️ **Módulo de Ofertas y Precios Efectivos:** Despliegue de productos rebajados calculados dinámicamente mediante la función de servicio `getPrecioEfectivo()`.
+- 🛒 **Carrito de Compras Interactivo:** Control estricto de cantidades (enteros $\ge 1$), cálculo automático de subtotales y persistencia instantánea.
+- 🚚 **Checkout y Formalización de Pedidos:** Validación semántica rigurosa de datos de contacto y entrega (nombre, email RFC 5322, teléfono, dirección, comuna y región).
+- 🧾 **Pantallas de Compra Exitosa y Fallida:** Generación de comprobante con identificador único (`PED-${Date.now()}-${random}`) y manejo amigable ante cancelaciones o errores.
+- 🔐 **Autenticación y Control de Acceso:** Sistema de registro, login y sesiones persistentes en cliente, con protección de rutas mediante `<RutaProtegida>` para administradores.
+- 🛠️ **Panel de Administración (CRUD Completo):** Vista de gestión para buscar, crear, editar y eliminar productos del inventario con confirmación modal.
+- 📰 **Vistas Institucionales y Editoriales:**
+  - **Nosotros:** Historia, pilares de calidad y fotografías de cocina/local.
+  - **Blog Gastronómico:** Artículos formativos sobre técnicas y recetas de repostería.
+  - **Contacto:** Formulario con validación y confirmación visual de recepción.
+- 🛡️ **Tolerancia a Fallos:** Manejador `onError` en tarjetas de catálogo que carga automáticamente `/images/productos/default-pasteleria.jpg` si un recurso gráfico no está disponible.
+- 🔄 **Migración Automática de Catálogo:** Detección de versión (`CATALOG_VERSION = 3`) que sincroniza los 28 productos base sin sobreescribir los productos agregados por el administrador.
 
-- Crear una estructura web semántica y organizada.
-- Implementar navegación entre las distintas páginas del sitio.
-- Diseñar una interfaz visual consistente y responsive.
-- Incorporar imágenes y contenido propio de la pastelería.
-- Implementar formularios con validaciones mediante JavaScript.
-- Crear funcionalidades de usuario como registro, inicio de sesión y
-  carrito.
-- Incorporar un área administrativa para la gestión del contenido.
-- Mantener el proyecto versionado mediante GitHub.
-- Distribuir tareas entre los integrantes del equipo y registrar los
-  cambios mediante commits.
+---
 
-------------------------------------------------------------------------
+## 🏛️ Arquitectura y Atomic Design
 
-## 🛠️ Tecnologías utilizadas
+El proyecto desacopla estrictamente la interfaz visual de la lógica de negocio y persistencia, utilizando **Atomic Design** y el patrón **Service Layer**:
 
-| Tecnología      | Uso                                |
-|-----------------|------------------------------------|
-| HTML5           | Estructura y contenido semántico   |
-| CSS3            | Estilos y diseño personalizado     |
-| JavaScript      | Lógica, validaciones e interacción |
-| Bootstrap 5.3.3 | Componentes y diseño responsive    |
-| Google Fonts    | Tipografías del sitio              |
-| Git             | Control de versiones               |
-| GitHub          | Repositorio remoto y colaboración  |
-
-------------------------------------------------------------------------
-
-## 📂 Estructura del proyecto
-
-``` text
-PasteleriaMilSabores/
-│
-├── index.html
-├── productos.html
-├── detalle-producto.html
-├── carrito-vista.html
-├── login.html
-├── registro.html
-├── contacto.html
-├── nosotros.html
-├── blogs.html
-├── detalle-blog1.html
-├── detalle-blog2.html
-│
-├── admin-home.html
-├── admin-productos.html
-├── admin-usuarios.html
-│
-└── assets/
-    ├── css/
-    │   └── estilos.css
-    │
-    ├── img/
-    │   ├── banner-carrito.jpg
-    │   ├── banner-contacto.jpg
-    │   ├── cupcake.jpg
-    │   ├── historia.jpg
-    │   ├── ingredientes.jpg
-    │   ├── torta-chocolate.jpg
-    │   ├── torta-frutas.jpg
-    │   ├── torta-manjar.jpg
-    │   └── vitrina.jpg
-    │
-    └── js/
-        ├── admin-productos.js
-        ├── admin-usuarios.js
-        ├── app.js
-        ├── carrito.js
-        ├── contacto.js
-        ├── detalle-producto.js
-        ├── form-utils.js
-        ├── login.js
-        ├── menu.js
-        ├── productos.js
-        ├── registro.js
-        └── resenas.js
+```
+src/
+├── components/
+│   ├── atoms/         # Componentes indivisibles: Alert, Badge, Button, Input
+│   ├── molecules/     # Combinaciones funcionales: FormField, QuantityControl, SearchBar
+│   ├── organisms/     # Secciones complejas: CartItem, CartSummary, Footer, Navbar, ProductCard, RutaProtegida
+│   └── templates/     # Estructuras de página: AuthLayout, MainLayout, PageHeader
+├── pages/             # 16 Vistas principales de la SPA
+└── services/          # Capa de negocio: productosService, usuariosService, carritoService, pedidosService, blogService
 ```
 
-------------------------------------------------------------------------
+---
 
-## 🖥️ Páginas principales
+## 📂 Estructura del Proyecto
 
-### 🏠 Inicio
-
-`index.html`
-
-Página principal de la aplicación. Presenta la identidad de Pastelería
-Mil Sabores, contenido destacado y acceso a las principales secciones
-del sitio.
-
-### 🧁 Productos
-
-`productos.html`
-
-Catálogo de productos de la pastelería, con categorías y elementos
-interactivos para facilitar la navegación.
-
-### 🍰 Detalle de producto
-
-`detalle-producto.html`
-
-Vista destinada a mostrar información específica de un producto
-seleccionado.
-
-### 🛒 Carrito
-
-`carrito-vista.html`
-
-Vista destinada a revisar los productos seleccionados, subtotal,
-descuentos y total de la compra.
-
-### 👤 Inicio de sesión
-
-`login.html`
-
-Formulario destinado al acceso de usuarios registrados y,
-posteriormente, a los distintos modos de acceso definidos para la
-aplicación.
-
-### 📝 Registro
-
-`registro.html`
-
-Formulario para crear una cuenta de usuario, incorporando datos
-personales, contacto y selección de región/comuna.
-
-### 📩 Contacto
-
-`contacto.html`
-
-Formulario de contacto para que los visitantes puedan enviar consultas a
-la pastelería.
-
-### ℹ️ Nosotros
-
-`nosotros.html`
-
-Sección informativa sobre la pastelería, su historia y propuesta.
-
-### 📰 Blog
-
-`blogs.html`
-
-Listado de publicaciones relacionadas con la pastelería.
-
-### 📖 Detalle de blogs
-
-- `detalle-blog1.html`
-- `detalle-blog2.html`
-
-Páginas destinadas a mostrar el contenido completo de publicaciones
-individuales.
-
-------------------------------------------------------------------------
-
-## 🔐 Área administrativa
-
-El proyecto contempla un área administrativa independiente del contenido
-público.
-
-Actualmente se consideran las siguientes vistas:
-
-- `admin-home.html`
-- `admin-productos.html`
-- `admin-usuarios.html`
-
-### Funcionalidades previstas
-
-- Acceso mediante modo administrador.
-- Gestión de productos.
-- Visualización y gestión de usuarios.
-- Control de stock.
-- Identificación de stock crítico.
-- Formularios para crear y modificar productos.
-
-------------------------------------------------------------------------
-
-## 👥 Modo usuario
-
-El proyecto contempla un flujo de usuario orientado a la compra y
-navegación por la tienda.
-
-### Funcionalidades
-
-- Registro de usuario.
-- Inicio de sesión.
-- Navegación por productos.
-- Visualización del detalle de productos.
-- Agregar productos al carrito.
-- Revisión del carrito.
-- Uso de formularios de contacto.
-- Interacción con reseñas cuando corresponda.
-
-------------------------------------------------------------------------
-
-## 🧾 Formularios y validaciones
-
-Uno de los objetivos principales de esta evaluación es implementar
-validaciones controladas mediante JavaScript.
-
-Entre las validaciones contempladas se encuentran:
-
-- Campos obligatorios.
-- Formato de correo electrónico.
-- Longitud mínima y máxima de campos.
-- Validación de contraseña.
-- Validación de RUN chileno.
-- Validación de valores numéricos.
-- Validación de stock y stock crítico.
-- Mensajes de error personalizados.
-- Sugerencias para orientar al usuario.
-
-La lógica común de validación se encuentra centralizada principalmente
-en:
-
-``` text
-assets/js/form-utils.js
+```bash
+PasteleriaReactTemp/
+├── coverage/                          # Reporte interactivo de cobertura HTML generado por Vitest
+│   └── index.html
+├── public/                            # Activos estáticos públicos
+│   └── images/
+│       └── productos/                 # 28 fotografías reales + hero + default fallback
+├── src/
+│   ├── components/                    # Componentes organizados por Atomic Design
+│   ├── pages/                         # 16 páginas de la tienda
+│   ├── services/                      # 5 servicios modulares con acceso a LocalStorage
+│   ├── App.css
+│   ├── App.jsx                        # Enrutador principal con 16 rutas declaradas
+│   ├── index.css                      # Estilos globales y tokens
+│   └── main.jsx                       # Punto de entrada de React 19
+├── test/                              # Suite de pruebas automatizadas
+│   ├── setup.js                       # Configuración global y cleanup de React Testing Library
+│   ├── Admin.spec.jsx                 # Pruebas CRUD de panel de administración
+│   ├── App.spec.jsx                   # Pruebas de navegación y enrutador
+│   ├── atomicComponents.spec.jsx      # Pruebas de átomos visuales
+│   ├── Carrito.spec.jsx               # Pruebas de vista de carrito
+│   ├── carritoService.spec.jsx        # Pruebas de servicio de carrito
+│   ├── Checkout.spec.jsx              # Pruebas de validación de despacho
+│   ├── productosService.spec.jsx      # Pruebas de catálogo, migración y ofertas
+│   └── ...                            # (25 archivos de prueba en total)
+├── ERS_Pasteleria_Mil_Sabores_V2.docx # Documento de Especificación de Requisitos (Word)
+├── ERS_Pasteleria_Mil_Sabores_V2.pdf  # Documento de Especificación de Requisitos (PDF)
+├── Informe_Cobertura_Testing_Pasteleria_Mil_Sabores_V2.docx # Informe de QA (Word)
+├── Informe_Cobertura_Testing_Pasteleria_Mil_Sabores_V2.pdf  # Informe de QA (PDF)
+├── package.json
+└── vite.config.js                     # Configuración de Vite y Vitest (v8, jsdom)
 ```
 
-Los formularios utilizan además atributos HTML como `required`,
-`minlength`, `maxlength`, `type="email"` y otros mecanismos nativos que
-complementan la validación realizada mediante JavaScript.
+---
 
-------------------------------------------------------------------------
+## 🚀 Instalación y Puesta en Marcha
 
-## 🎨 Diseño y estilos
+### Prerrequisitos
+- **Node.js:** Versión 18.0 o superior (recomendado Node 20+ o 22+).
+- **npm:** Gestor de paquetes incluido con Node.js.
 
-El proyecto utiliza una hoja de estilos externa:
-
-``` text
-assets/css/estilos.css
+### 1. Clonar o Descargar el Repositorio
+```bash
+git clone <URL_DEL_REPOSITORIO>
+cd PasteleriaReactTemp
 ```
 
-Esto permite mantener una identidad visual consistente entre las
-diferentes páginas y facilita el mantenimiento del proyecto.
-
-La interfaz está orientada a una estética relacionada con una
-pastelería, utilizando:
-
-- Tonalidades cálidas.
-- Tarjetas de productos.
-- Botones personalizados.
-- Imágenes propias del proyecto.
-- Tipografías externas.
-- Diseño responsive.
-- Componentes de Bootstrap.
-
-------------------------------------------------------------------------
-
-## 🖼️ Recursos gráficos
-
-Las imágenes utilizadas por el proyecto se encuentran dentro de:
-
-``` text
-assets/img/
+### 2. Instalar Dependencias
+```bash
+npm install
 ```
 
-Entre los recursos disponibles se incluyen imágenes de:
+### 3. Ejecutar en Modo Desarrollo
+```bash
+npm run dev
+```
+La aplicación iniciará en `http://localhost:5173/`.
 
-- Tortas de chocolate.
-- Tortas de frutas.
-- Tortas de manjar.
-- Cupcakes.
-- Vitrina de productos.
-- Historia de la pastelería.
-- Ingredientes.
-- Banners para distintas secciones.
-
-El uso de recursos locales permite mantener el proyecto independiente de
-servicios externos para sus imágenes principales.
-
-------------------------------------------------------------------------
-
-## ⚙️ JavaScript
-
-La lógica del proyecto se divide en archivos según la funcionalidad
-correspondiente.
-
-| Archivo               | Responsabilidad                              |
-|-----------------------|----------------------------------------------|
-| `app.js`              | Datos y funciones generales de la aplicación |
-| `productos.js`        | Renderizado y filtrado de productos          |
-| `detalle-producto.js` | Información del producto seleccionado        |
-| `carrito.js`          | Gestión del carrito                          |
-| `login.js`            | Inicio de sesión                             |
-| `registro.js`         | Registro de usuarios                         |
-| `form-utils.js`       | Validaciones y utilidades de formularios     |
-| `contacto.js`         | Formulario de contacto                       |
-| `menu.js`             | Funcionalidades del menú                     |
-| `resenas.js`          | Gestión de reseñas                           |
-| `admin-productos.js`  | Gestión administrativa de productos          |
-| `admin-usuarios.js`   | Gestión administrativa de usuarios           |
-
-------------------------------------------------------------------------
-
-## 💾 Persistencia frontend
-
-Durante esta etapa, algunas funcionalidades se implementarán utilizando
-almacenamiento del navegador, principalmente mediante:
-
-- `localStorage`
-- `sessionStorage`
-
-Esto permite simular persistencia de información y mantener determinados
-datos entre páginas sin utilizar todavía un backend.
-
-> Esta implementación corresponde al alcance frontend de la evaluación y
-> podrá evolucionar en etapas posteriores del proyecto.
-
-------------------------------------------------------------------------
-
-## 📱 Diseño responsive
-
-La aplicación está pensada para adaptarse a diferentes tamaños de
-pantalla mediante:
-
-- Bootstrap.
-- Clases responsive.
-- Contenedores fluidos.
-- Imágenes adaptables.
-- Distribución responsive de tarjetas y elementos de navegación.
-
-------------------------------------------------------------------------
-
-## 🔗 Navegación
-
-Las páginas del proyecto se encuentran conectadas mediante hipervínculos
-internos.
-
-El objetivo es que el usuario pueda desplazarse de forma coherente
-entre:
-
-``` text
-Inicio
-  ↓
-Productos
-  ↓
-Detalle de producto
-  ↓
-Carrito
-
-Inicio
-  ↓
-Nosotros
-  ↓
-Blog
-  ↓
-Detalle del blog
-
-Inicio
-  ↓
-Registro
-  ↓
-Login
+### 4. Compilar para Producción
+```bash
+npm run build
+npm run preview
 ```
 
-Además, el área administrativa posee sus propias vistas y navegación.
+---
 
-------------------------------------------------------------------------
+## 🧪 Pruebas Automatizadas y Cobertura (QA)
 
-## 👨‍💻 Equipo de desarrollo
+El proyecto cuenta con **171 pruebas unitarias** automatizadas distribuidas en **25 archivos de especificación**, ejecutadas con el motor **Vitest 5.0.5** y reporte instrumentado por **@vitest/coverage-v8**.
 
-**Pastelería Mil Sabores** fue desarrollada por:
+### Comandos de Ejecución
 
-- **Diego Berrios**
-- **Luca Buitano**
-- **Valentina Osses**
+```powershell
+# Ejecutar pruebas y generar reporte de cobertura en consola y HTML
+npm.cmd run test:coverage
 
-El trabajo se distribuye entre los integrantes y los cambios se integran
-al repositorio del proyecto.
+# Ejecutar las pruebas una sola vez (modo CI / batch)
+npm.cmd run test:run
 
-------------------------------------------------------------------------
-
-## 🌿 Flujo de trabajo con Git
-
-El proyecto utiliza Git para controlar las versiones del código.
-
-Flujo general:
-
-``` text
-Crear / modificar funcionalidad
-        ↓
-Probar cambios
-        ↓
-git add
-        ↓
-git commit
-        ↓
-git push
-        ↓
-Repositorio GitHub
-        ↓
-Integración de cambios
+# Modo watcher interactivo durante el desarrollo
+npm.cmd test
 ```
 
-Se busca utilizar mensajes de commit claros y relacionados directamente
-con el cambio realizado.
+> **Nota para Windows PowerShell:** Se recomienda utilizar `npm.cmd` en lugar de `npm` para respetar las políticas de ejecución de scripts de Windows.
 
-------------------------------------------------------------------------
+### Métricas de Cobertura Obtenidas (Auditoría Oficial)
 
-## 🚀 Instalación y ejecución
+| Métrica | Porcentaje Obtenido | Requisito Mínimo | Estado |
+| :--- | :---: | :---: | :---: |
+| **Líneas (`% Lines`)** | **89.54%** | 80.00% | ✅ **Superado (+9.54%)** |
+| **Ramas (`% Branch`)** | **90.35%** | 80.00% | ✅ **Superado (+10.35%)** |
+| **Funciones (`% Funcs`)** | **89.23%** | 80.00% | ✅ **Superado (+9.23%)** |
+| **Sentencias (`% Stmts`)** | **88.95%** | 80.00% | ✅ **Superado (+8.95%)** |
+| **Pruebas Unitarias** | **171 / 171 Pasadas** | 100% | ✅ **0 Fallos** |
 
-Este proyecto corresponde actualmente a un frontend estático, por lo que
-no requiere instalar un servidor backend para visualizar sus páginas.
-
-### 1. Clonar el repositorio
-
-``` bash
-git clone 
+Para inspeccionar el detalle visual interactivo de cada archivo, abre en tu navegador:
+```
+coverage/index.html
 ```
 
-### 2. Ingresar a la carpeta
+---
 
-``` bash
-cd PasteleriaMilSabores
-```
+## 💾 Modelo de Persistencia Local (LocalStorage)
 
-### 3. Ejecutar el proyecto
+Dado el alcance de la Evaluación Parcial 2 (Frontend puro), la persistencia de datos opera en el navegador del usuario utilizando la **Web Storage API**. Todas las claves utilizan el espacio de nombres corporativo `milSabores_*`:
 
-Abrir:
+| Clave en LocalStorage | Servicio | Descripción y Contenido |
+| :--- | :--- | :--- |
+| `milSabores_productos` | `productosService.js` | Catálogo de productos con precios, stock, imágenes y ofertas. |
+| `milSabores_catalogVersion` | `productosService.js` | Control de versión del catálogo (`"3"`) para migración automática. |
+| `milSabores_usuarios` | `usuariosService.js` | Registro de cuentas de clientes y administradores. |
+| `milSabores_sesion` | `usuariosService.js` | Objeto de la sesión activa autenticada. |
+| `milSabores_carrito` | `carritoService.js` | Ítems seleccionados con precio efectivo y cantidades. |
+| `milSabores_pedidos` | `pedidosService.js` | Historial de órdenes de compra confirmadas. |
+| `milSabores_ultimo_pedido` | `pedidosService.js` | Respaldo de la última orden para la pantalla de compra exitosa. |
 
-``` text
-index.html
-```
+---
 
-También se recomienda utilizar **Visual Studio Code**
+## 🗺️ Mapa de Rutas (16 Rutas Reales)
 
-------------------------------------------------------------------------
+Declaradas en [`src/App.jsx`](file:///c:/Users/diber/Downloads/PasteleriaReactTemp/src/App.jsx):
 
-## 📜 Licencia
+| N° | Ruta URL | Página / Componente | Acceso | Propósito |
+| :---: | :--- | :--- | :---: | :--- |
+| 1 | `/` | `Home.jsx` | Público | Portada, banner héroe y vitrina chilena. |
+| 2 | `/productos` | `Productos.jsx` | Público | Catálogo con 28 productos, filtros y búsqueda. |
+| 3 | `/productos/:id` | `DetalleProducto.jsx` | Público | Ficha técnica completa y selector de cantidad. |
+| 4 | `/ofertas` | `Ofertas.jsx` | Público | Vitrina exclusiva de productos rebajados. |
+| 5 | `/categorias` | `Categorias.jsx` | Público | Directorio interactivo de las 8 categorías. |
+| 6 | `/nosotros` | `Nosotros.jsx` | Público | Historia institucional y fotos del taller. |
+| 7 | `/blog` | `Blog.jsx` | Público | Artículos formativos sobre pastelería. |
+| 8 | `/blog/:id` | `DetalleBlog.jsx` | Público | Lectura completa de artículo editorial. |
+| 9 | `/contacto` | `Contacto.jsx` | Público | Formulario de atención al cliente. |
+| 10 | `/login` | `Login.jsx` | Público | Autenticación para clientes y administrador. |
+| 11 | `/registro` | `Registro.jsx` | Público | Alta de nuevos usuarios clientes. |
+| 12 | `/carrito` | `Carrito.jsx` | Público | Resumen y edición interactiva de compra. |
+| 13 | `/checkout` | `Checkout.jsx` | Privado | Formulario y validación de despacho. |
+| 14 | `/compra-exitosa` | `CompraExitosa.jsx` | Público / Cliente | Comprobante de orden generada (`PED-`). |
+| 15 | `/compra-fallida` | `CompraFallida.jsx` | Público / Cliente | Aviso de error con preservación de carrito. |
+| 16 | `/admin` | `Admin.jsx` | Privado (`admin`) | Panel CRUD unificado de productos. |
 
-Proyecto académico desarrollado para **Duoc UC**.
+---
 
-Uso destinado a fines educativos y de evaluación.
+## 📄 Documentación de Entrega Oficial
 
-------------------------------------------------------------------------
+En la raíz del proyecto se encuentran disponibles los documentos académicos formales generados para la evaluación:
 
-## 🤖 Declaración de IA
+1. **Especificación de Requisitos de Software (ERS V2):**
+   - Editable Word: [`ERS_Pasteleria_Mil_Sabores_V2.docx`](./ERS_Pasteleria_Mil_Sabores_V2.docx)
+   - PDF Oficial: [`ERS_Pasteleria_Mil_Sabores_V2.pdf`](./ERS_Pasteleria_Mil_Sabores_V2.pdf)
+2. **Informe de Pruebas Unitarias y Cobertura de Código:**
+   - Editable Word: [`Informe_Cobertura_Testing_Pasteleria_Mil_Sabores_V2.docx`](./Informe_Cobertura_Testing_Pasteleria_Mil_Sabores_V2.docx)
+   - PDF Oficial: [`Informe_Cobertura_Testing_Pasteleria_Mil_Sabores_V2.pdf`](./Informe_Cobertura_Testing_Pasteleria_Mil_Sabores_V2.pdf)
 
-En este proyecto se utilizaron herramientas de Inteligencia Artificial exclusivamente como apoyo para agilizar el desarrollo, resolver dudas y optimizar procesos. Toda la lógica principal, la arquitectura y la revisión final del código fueron realizadas con criterio humano.
+---
+
+## 🎓 Información Académica
+
+- **Institución:** Duoc UC
+- **Carrera / Escuela:** Escuela de Informática y Telecomunicaciones
+- **Asignatura:** Desarrollo Fullstack II (`DSY1104`)
+- **Evaluación:** Evaluación Parcial 2 (EP2)
+- **Periodo:** Segundo Semestre 2026
+- **Integrantes:** `[Nombre del Alumno 1 / Nombre del Alumno 2]`
+- **Docente:** `[Nombre del Profesor / Docente]`
