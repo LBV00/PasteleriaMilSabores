@@ -21,7 +21,7 @@ describe('Página Productos', () => {
         )
 
         expect(
-            screen.getByRole('heading', { level: 1, name: 'Nuestro caa' })
+            screen.getByRole('heading', { level: 1, name: 'Nuestro catálogo' })
         ).toBeInTheDocument()
         expect(screen.getByText('Torta de chocolate')).toBeInTheDocument()
         expect(screen.getByText('Cheesecake')).toBeInTheDocument()
