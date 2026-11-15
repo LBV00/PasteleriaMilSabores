@@ -38,7 +38,7 @@ function DetalleProducto() {
     }
 
     const formatearPrecio = (valor) =>
-        valor.toLocaleString('es-CL', {
+        (valor || 0).toLocaleString('es-CL', {
             style: 'currency',
             currency: 'CLP',
             maximumFractionDigits: 0,
@@ -56,12 +56,21 @@ function DetalleProducto() {
         ? Math.round(((producto.precio - producto.precioOferta) / producto.precio) * 100)
         : 0
 
+    const stock = typeof producto.stock === 'number' ? producto.stock : 10
+    const esAgotado = stock <= 0
+    const esStockBajo = stock > 0 && stock <= 5
+
     function manejarAgregar() {
+        if (esAgotado) {
+            setMensaje(`Lo sentimos, "${producto.nombre}" está agotado.`)
+            return
+        }
+
         const guardado = agregarAlCarrito(producto)
         setMensaje(
             guardado
                 ? `${producto.nombre} agregado al carrito.`
-                : 'No se pudo agregar al carrito.'
+                : 'No se pudo agregar al carrito. Verifica el stock disponible.'
         )
     }
 
@@ -109,8 +118,23 @@ function DetalleProducto() {
                     </div>
 
                     <div className="col-12 col-md-6">
-                        <div className="mb-3">
+                        <div className="d-flex align-items-center gap-2 mb-3 flex-wrap">
                             <Badge className="px-3 py-2">{producto.categoria}</Badge>
+                            {esAgotado && (
+                                <span className="badge bg-danger px-3 py-2 fs-6">
+                                    Agotado
+                                </span>
+                            )}
+                            {esStockBajo && (
+                                <span className="badge bg-warning text-dark px-3 py-2 fs-6">
+                                    {stock === 1 ? '¡Última unidad disponible!' : `¡Solo quedan ${stock} unidades!`}
+                                </span>
+                            )}
+                            {!esAgotado && !esStockBajo && (
+                                <span className="badge bg-success-subtle text-success border border-success-subtle px-3 py-2">
+                                    Disponible ({stock} unidades)
+                                </span>
+                            )}
                         </div>
 
                         <h2 className="display-6 fw-bold mb-3" style={{ color: '#4b2e25' }}>
@@ -153,14 +177,26 @@ function DetalleProducto() {
                         )}
 
                         <div className="d-flex flex-column gap-3">
-                            <Button
-                                type="button"
-                                size="lg"
-                                className="w-100"
-                                onClick={manejarAgregar}
-                            >
-                                Agregar al carrito
-                            </Button>
+                            {esAgotado ? (
+                                <Button
+                                    type="button"
+                                    size="lg"
+                                    className="w-100"
+                                    disabled
+                                    variant="secondary"
+                                >
+                                    Agotado
+                                </Button>
+                            ) : (
+                                <Button
+                                    type="button"
+                                    size="lg"
+                                    className="w-100"
+                                    onClick={manejarAgregar}
+                                >
+                                    Agregar al carrito
+                                </Button>
+                            )}
 
                             <Link
                                 to="/productos"

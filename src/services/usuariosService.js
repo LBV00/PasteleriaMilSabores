@@ -1,6 +1,23 @@
 const CLAVE_USUARIOS = 'milSabores_usuarios'
 const CLAVE_SESION = 'milSabores_sesion'
 
+export const USUARIOS_DEMO = [
+    {
+        id: 9001,
+        nombre: 'Administrador General',
+        email: 'admin@pasteleria.cl',
+        password: 'admin123',
+        rol: 'admin',
+    },
+    {
+        id: 9002,
+        nombre: 'Cliente Frecuente',
+        email: 'cliente@pasteleria.cl',
+        password: 'cliente123',
+        rol: 'cliente',
+    },
+]
+
 function obtenerUsuarios() {
     try {
         const datos = localStorage.getItem(CLAVE_USUARIOS)
@@ -27,13 +44,14 @@ function guardarUsuarios(usuarios) {
     }
 }
 
-export function registrarUsuario({ nombre, email, password }) {
+export function registrarUsuario({ nombre, email, password, rol = 'cliente' }) {
     const usuarios = obtenerUsuarios()
     const correo = email.trim().toLowerCase()
 
-    const existe = usuarios.some((usuario) => usuario.email === correo)
+    const existeEnUsuarios = usuarios.some((usuario) => usuario.email === correo)
+    const existeEnDemo = USUARIOS_DEMO.some((usuario) => usuario.email === correo)
 
-    if (existe) {
+    if (existeEnUsuarios || existeEnDemo) {
         return {
             ok: false,
             mensaje: 'Ya existe una cuenta con ese correo electrónico.',
@@ -45,7 +63,7 @@ export function registrarUsuario({ nombre, email, password }) {
         nombre: nombre.trim(),
         email: correo,
         password,
-        rol: 'cliente',
+        rol: rol === 'admin' ? 'admin' : 'cliente',
     }
 
     const guardado = guardarUsuarios([...usuarios, nuevoUsuario])
@@ -64,12 +82,19 @@ export function registrarUsuario({ nombre, email, password }) {
 }
 
 export function iniciarSesion(email, password) {
-    const correo = email.trim().toLowerCase()
+    const correo = (email || '').trim().toLowerCase()
+    const pass = password || ''
     const usuarios = obtenerUsuarios()
 
-    const usuario = usuarios.find(
-        (item) => item.email === correo && item.password === password
+    let usuario = usuarios.find(
+        (item) => item.email === correo && item.password === pass
     )
+
+    if (!usuario) {
+        usuario = USUARIOS_DEMO.find(
+            (item) => item.email === correo && item.password === pass
+        )
+    }
 
     if (!usuario) {
         return {

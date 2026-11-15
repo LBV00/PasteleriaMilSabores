@@ -1,8 +1,10 @@
 import { useLocation, Link, useSearchParams } from 'react-router-dom'
 import { obtenerPedidoPorId, obtenerUltimoPedido } from '../services/pedidosService.js'
+import { calcularImpuestos } from '../services/impuestosService.js'
 import PageHeader from '../components/templates/PageHeader.jsx'
 import Alert from '../components/atoms/Alert.jsx'
 import Badge from '../components/atoms/Badge.jsx'
+import Button from '../components/atoms/Button.jsx'
 
 function CompraExitosa() {
     const location = useLocation()
@@ -28,6 +30,10 @@ function CompraExitosa() {
             hour: '2-digit',
             minute: '2-digit',
         })
+    }
+
+    function manejarImprimir() {
+        window.print()
     }
 
     if (!pedido || !pedido.id) {
@@ -61,47 +67,62 @@ function CompraExitosa() {
         )
     }
 
+    const { neto, iva } = calcularImpuestos(pedido.total)
+    const netoFinal = pedido.neto !== undefined ? pedido.neto : neto
+    const ivaFinal = pedido.iva !== undefined ? pedido.iva : iva
+
     return (
         <main>
-            <PageHeader
-                subtitle="¡Gracias por tu compra!"
-                title="Pedido confirmado"
-                description="Hemos recibido tu orden y ya nos estamos preparando para endulzar tu día."
-                centered
-            />
+            <div className="d-print-none">
+                <PageHeader
+                    subtitle="¡Gracias por tu compra!"
+                    title="Pedido confirmado"
+                    description="Hemos recibido tu orden y ya nos estamos preparando para endulzar tu día."
+                    centered
+                />
+            </div>
 
-            <section className="container py-5">
+            <section className="container py-4 py-lg-5">
                 <div className="row justify-content-center">
-                    <div className="col-12 col-lg-8">
-                        <div className="card border-0 shadow-sm p-4 p-md-5 mb-4">
+                    <div className="col-12 col-lg-9">
+                        {/* Tarjeta imprimible de comprobante de compra */}
+                        <div className="card border-0 shadow-sm p-4 p-md-5 mb-4 bg-white" id="comprobanteCompra">
+                            {/* Encabezado del comprobante */}
                             <div className="d-flex flex-wrap justify-content-between align-items-center gap-3 pb-3 border-bottom mb-4">
                                 <div>
-                                    <span className="text-secondary small d-block">Número de pedido</span>
-                                    <h2 className="h4 fw-bold mb-0" style={{ color: '#4b2e25' }}>
-                                        {pedido.id}
-                                    </h2>
+                                    <h1 className="h3 fw-bold mb-1" style={{ color: '#4b2e25' }}>
+                                        Pastelería Mil Sabores
+                                    </h1>
+                                    <p className="text-muted small mb-0">
+                                        Comprobante de Detalle de Compra y Despacho
+                                    </p>
+                                    <span className="text-secondary small d-block mt-2">
+                                        Número de pedido: <strong className="text-dark">{pedido.id}</strong>
+                                    </span>
                                 </div>
+
                                 <div className="text-md-end">
                                     <Badge backgroundColor="#d1e7dd" color="#0f5132" className="px-3 py-2 fs-6">
                                         ✓ {pedido.estado?.toUpperCase() || 'CONFIRMADO'}
                                     </Badge>
-                                    <span className="text-secondary small d-block mt-1">
-                                        {formatearFecha(pedido.fecha)}
+                                    <span className="text-secondary small d-block mt-2">
+                                        Fecha: {formatearFecha(pedido.fecha)}
                                     </span>
                                 </div>
                             </div>
 
-                            <div className="mb-5">
-                                <h3 className="h5 fw-bold mb-3" style={{ color: '#4b2e25' }}>
+                            {/* Detalle de productos */}
+                            <div className="mb-4">
+                                <h2 className="h5 fw-bold mb-3" style={{ color: '#4b2e25' }}>
                                     Detalle del pedido
-                                </h3>
+                                </h2>
                                 <div className="table-responsive">
                                     <table className="table align-middle">
-                                        <thead>
+                                        <thead className="table-light">
                                             <tr className="text-secondary small">
                                                 <th>Producto</th>
                                                 <th className="text-center">Cantidad</th>
-                                                <th className="text-end">Precio unitario</th>
+                                                <th className="text-end">Precio unitario (IVA incl.)</th>
                                                 <th className="text-end">Subtotal</th>
                                             </tr>
                                         </thead>
@@ -117,56 +138,80 @@ function CompraExitosa() {
                                                 </tr>
                                             ))}
                                         </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <td colSpan="3" className="text-end fw-bold fs-5 pt-3">
-                                                    Total pagado:
-                                                </td>
-                                                <td className="text-end fw-bold fs-5 pt-3" style={{ color: '#75452f' }}>
-                                                    {formatearPrecio(pedido.total)}
-                                                </td>
-                                            </tr>
-                                        </tfoot>
                                     </table>
                                 </div>
                             </div>
 
-                            <div className="mb-4 p-4 rounded-3" style={{ backgroundColor: '#fff4eb' }}>
-                                <h3 className="h5 fw-bold mb-3" style={{ color: '#4b2e25' }}>
-                                    Datos de entrega
-                                </h3>
-                                <div className="row g-2 small">
-                                    <div className="col-12 col-sm-6">
-                                        <strong>Nombre:</strong> {pedido.cliente?.nombre}
-                                    </div>
-                                    <div className="col-12 col-sm-6">
-                                        <strong>Correo:</strong> {pedido.cliente?.email}
-                                    </div>
-                                    <div className="col-12 col-sm-6">
-                                        <strong>Teléfono:</strong> {pedido.cliente?.telefono}
-                                    </div>
-                                    <div className="col-12 col-sm-6">
-                                        <strong>Dirección:</strong> {pedido.cliente?.direccion}
-                                    </div>
-                                    <div className="col-12 col-sm-6">
-                                        <strong>Comuna / Región:</strong> {pedido.cliente?.comuna}, {pedido.cliente?.region}
-                                    </div>
-                                    {pedido.cliente?.indicaciones && (
-                                        <div className="col-12">
-                                            <strong>Indicaciones:</strong> {pedido.cliente.indicaciones}
+                            {/* Desglose Tributario (IVA 19% chileno) */}
+                            <div className="row g-4 mb-4">
+                                <div className="col-12 col-md-6">
+                                    <div className="p-3 rounded-3 h-100" style={{ backgroundColor: '#fff4eb' }}>
+                                        <h3 className="h6 fw-bold mb-2" style={{ color: '#4b2e25' }}>
+                                            Datos de entrega
+                                        </h3>
+                                        <div className="small">
+                                            <p className="mb-1"><strong>Nombre:</strong> {pedido.cliente?.nombre}</p>
+                                            <p className="mb-1"><strong>Correo:</strong> {pedido.cliente?.email}</p>
+                                            <p className="mb-1"><strong>Teléfono:</strong> {pedido.cliente?.telefono}</p>
+                                            <p className="mb-1"><strong>Dirección:</strong> {pedido.cliente?.direccion}</p>
+                                            <p className="mb-1"><strong>Comuna / Región:</strong> {pedido.cliente?.comuna}, {pedido.cliente?.region}</p>
+                                            {pedido.cliente?.indicaciones && (
+                                                <p className="mb-0"><strong>Indicaciones:</strong> {pedido.cliente.indicaciones}</p>
+                                            )}
                                         </div>
-                                    )}
+                                    </div>
+                                </div>
+
+                                <div className="col-12 col-md-6">
+                                    <div className="card border p-3 h-100 bg-light">
+                                        <h3 className="h6 fw-bold mb-3" style={{ color: '#4b2e25' }}>
+                                            Resumen comercial y tributario
+                                        </h3>
+                                        <div className="d-flex justify-content-between mb-2 small">
+                                            <span className="text-secondary">Subtotal (IVA incluido):</span>
+                                            <span className="fw-semibold">{formatearPrecio(pedido.total)}</span>
+                                        </div>
+                                        <div className="d-flex justify-content-between mb-2 small">
+                                            <span className="text-secondary">Monto Neto:</span>
+                                            <span>{formatearPrecio(netoFinal)}</span>
+                                        </div>
+                                        <div className="d-flex justify-content-between mb-2 small">
+                                            <span className="text-secondary">IVA (19% chileno):</span>
+                                            <span>{formatearPrecio(ivaFinal)}</span>
+                                        </div>
+                                        <hr className="my-2" />
+                                        <div className="d-flex justify-content-between align-items-center">
+                                            <span className="fw-bold fs-6">Total pagado:</span>
+                                            <span className="fw-bold fs-5" style={{ color: '#75452f' }}>
+                                                {formatearPrecio(pedido.total)}
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div className="text-center pt-3">
+                            {/* Nota de validez simulada */}
+                            <div className="alert alert-secondary py-2 px-3 small mb-4">
+                                <strong>Nota informativa:</strong> Este comprobante es una representación académica simulada para el proyecto de pastelería con IVA chileno del 19% incluido en los precios finales. No corresponde a una boleta electrónica tributaria oficial emitida ante el Servicio de Impuestos Internos (SII).
+                            </div>
+
+                            {/* Botones de acción (ocultos al imprimir) */}
+                            <div className="d-flex flex-wrap justify-content-between align-items-center gap-3 pt-3 border-top d-print-none">
                                 <Link
                                     to="/productos"
-                                    className="btn btn-lg text-white px-5"
-                                    style={{ backgroundColor: '#75452f' }}
+                                    className="btn btn-outline-dark px-4"
                                 >
                                     Volver al catálogo
                                 </Link>
+
+                                <Button
+                                    type="button"
+                                    variant="primary"
+                                    onClick={manejarImprimir}
+                                    className="px-4 shadow-sm"
+                                >
+                                    🖨️ Imprimir comprobante
+                                </Button>
                             </div>
                         </div>
                     </div>

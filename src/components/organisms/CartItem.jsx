@@ -7,12 +7,22 @@ function CartItem({
     onEliminar,
     formatearPrecio,
 }) {
+    const stockMax = typeof producto.stock === 'number' ? producto.stock : undefined
+    const stockBajo = stockMax !== undefined && stockMax <= 5
+
     return (
         <article className="card border-0 shadow-sm">
             <div className="card-body p-3 p-md-4">
                 <div className="row align-items-center g-3">
                     <div className="col-12 col-sm-7">
-                        <h2 className="h5 fw-bold mb-2">{producto.nombre}</h2>
+                        <div className="d-flex align-items-center gap-2 mb-1">
+                            <h2 className="h5 fw-bold mb-0">{producto.nombre}</h2>
+                            {stockBajo && (
+                                <span className="badge bg-warning text-dark small">
+                                    {stockMax === 1 ? '¡Última unidad!' : `¡Solo ${stockMax} disponibles!`}
+                                </span>
+                            )}
+                        </div>
 
                         <p className="text-secondary mb-1">
                             Precio unitario: {formatearPrecio(producto.precio)}
@@ -35,6 +45,7 @@ function CartItem({
                         <QuantityControl
                             id={`cantidad-${producto.id}`}
                             cantidad={producto.cantidad}
+                            max={stockMax}
                             nombreProducto={producto.nombre}
                             onDisminuir={() =>
                                 onCambiarCantidad(producto.id, producto.cantidad - 1)

@@ -1,4 +1,6 @@
 import { vaciarCarrito } from './carritoService.js'
+import { calcularImpuestos, calcularDesgloseItem } from './impuestosService.js'
+import { validarStockDisponible, descontarStock } from './productosService.js'
 
 const CLAVE_PEDIDOS = 'milSabores_pedidos'
 const CLAVE_ULTIMO_PEDIDO = 'milSabores_ultimo_pedido'
@@ -92,27 +94,45 @@ export function crearPedido(datosEntrega, productosCarrito) {
         }
     }
 
+    // 1. Validar disponibilidad de stock e integridad de productos
+    const validacionStock = validarStockDisponible(productosCarrito)
+    if (!validacionStock.ok) {
+        return {
+            ok: false,
+            error: validacionStock.error || 'Stock insuficiente para procesar la orden.',
+        }
+    }
+
+    // 2. Calcular importes e impuestos (desglose IVA chileno 19%)
     const items = productosCarrito.map((item) => {
         const precio = Number(item.precio) || 0
         const cantidad = Number.isInteger(item.cantidad) && item.cantidad > 0 ? item.cantidad : 1
+        const desgloseItem = calcularDesgloseItem(precio, cantidad)
 
         return {
             id: item.id,
             nombre: item.nombre,
             precio,
             cantidad,
-            subtotal: precio * cantidad,
+            subtotal: desgloseItem.total,
+            neto: desgloseItem.neto,
+            iva: desgloseItem.iva,
         }
     })
 
     const total = items.reduce((suma, item) => suma + item.subtotal, 0)
     const cantidadTotal = items.reduce((suma, item) => suma + item.cantidad, 0)
+    const desgloseTotal = calcularImpuestos(total)
 
     const nuevoPedido = {
         id: `PED-${Date.now()}-${Math.floor(1000 + Math.random() * 9000)}`,
         fecha: new Date().toISOString(),
         items,
         total,
+        neto: desgloseTotal.neto,
+        iva: desgloseTotal.iva,
+        tasaIva: desgloseTotal.tasa,
+        porcentajeIva: desgloseTotal.porcentaje,
         cantidadTotal,
         cliente: {
             nombre: datosEntrega.nombre.trim(),
@@ -126,6 +146,7 @@ export function crearPedido(datosEntrega, productosCarrito) {
         estado: 'confirmado',
     }
 
+    // 3. Registrar el pedido en almacenamiento local
     const pedidosExistentes = obtenerPedidosGuardados()
     const guardadoExitoso = guardarPedidos([...pedidosExistentes, nuevoPedido])
 
@@ -136,12 +157,16 @@ export function crearPedido(datosEntrega, productosCarrito) {
         }
     }
 
+    // 4. Solo tras confirmar el registro exitoso del pedido, descontar el stock
+    descontarStock(items)
+
     try {
         localStorage.setItem(CLAVE_ULTIMO_PEDIDO, JSON.stringify(nuevoPedido))
     } catch (e) {
         console.error('No se pudo guardar el último pedido en caché:', e)
     }
 
+    // 5. Vaciar el carrito tras compra exitosa
     vaciarCarrito()
 
     return {

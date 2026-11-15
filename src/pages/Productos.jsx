@@ -30,6 +30,11 @@ function Productos() {
     })
 
     function manejarAgregar(producto) {
+        if (producto.stock !== undefined && producto.stock <= 0) {
+            setMensaje(`Lo sentimos, "${producto.nombre}" se encuentra agotado.`)
+            return
+        }
+
         const guardado = agregarAlCarrito(producto)
 
         setMensaje(
@@ -107,6 +112,7 @@ function Productos() {
                                 enOferta={producto.enOferta}
                                 categoria={producto.categoria}
                                 imagen={producto.imagen}
+                                stock={producto.stock}
                                 onAgregar={() => manejarAgregar(producto)}
                             />
                         ))}

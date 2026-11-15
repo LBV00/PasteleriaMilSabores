@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { listarCarrito } from '../services/carritoService.js'
 import { crearPedido, validarDatosEntrega } from '../services/pedidosService.js'
 import { obtenerSesion } from '../services/usuariosService.js'
+import { calcularImpuestos } from '../services/impuestosService.js'
 import PageHeader from '../components/templates/PageHeader.jsx'
 import Alert from '../components/atoms/Alert.jsx'
 import Button from '../components/atoms/Button.jsx'
@@ -32,8 +33,10 @@ function Checkout() {
         0
     )
 
+    const { neto, iva } = calcularImpuestos(total)
+
     function formatearPrecio(precio) {
-        return precio.toLocaleString('es-CL', {
+        return (precio || 0).toLocaleString('es-CL', {
             style: 'currency',
             currency: 'CLP',
             maximumFractionDigits: 0,
@@ -280,9 +283,19 @@ function Checkout() {
 
                                     <hr />
 
-                                    <div className="d-flex justify-content-between align-items-center mb-3">
+                                    <div className="d-flex justify-content-between align-items-center mb-2">
                                         <span className="text-secondary">Subtotal</span>
                                         <span>{formatearPrecio(total)}</span>
+                                    </div>
+
+                                    <div className="d-flex justify-content-between align-items-center mb-2 small text-muted">
+                                        <span>Precio Neto</span>
+                                        <span>{formatearPrecio(neto)}</span>
+                                    </div>
+
+                                    <div className="d-flex justify-content-between align-items-center mb-3 small text-muted">
+                                        <span>IVA del 19% (incluido)</span>
+                                        <span>{formatearPrecio(iva)}</span>
                                     </div>
 
                                     <div className="d-flex justify-content-between align-items-center mb-4">
@@ -294,7 +307,7 @@ function Checkout() {
 
                                     <div className="p-3 rounded-3" style={{ backgroundColor: '#fff4eb' }}>
                                         <p className="small text-secondary mb-0">
-                                            ℹ️ El pago se coordinará contra entrega o transferencia bancaria según las indicaciones que te enviaremos por correo.
+                                            ℹ️ El pago se coordinará contra entrega o transferencia bancaria según las indicaciones que te enviaremos por correo. Precios finales con IVA incluido.
                                         </p>
                                     </div>
                                 </div>

@@ -1,10 +1,9 @@
-const CATALOG_VERSION = 3
+const CATALOG_VERSION = 4
 
 const CLAVE_STORAGE = 'milSabores_productos'
 const CLAVE_CATALOG_VERSION = 'milSabores_catalogVersion'
 
 const PRODUCTOS_INICIALES = [
-
     {
         id: 1,
         nombre: 'Torta de chocolate',
@@ -13,6 +12,7 @@ const PRODUCTOS_INICIALES = [
         descripcion: 'Torta de chocolate ideal para celebraciones, húmeda y esponjosa, cubierta con ganache de chocolate amargo.',
         imagen: '/images/productos/torta-chocolate.jpg',
         enOferta: false,
+        stock: 15,
     },
     {
         id: 2,
@@ -23,6 +23,7 @@ const PRODUCTOS_INICIALES = [
         imagen: '/images/productos/cheesecake.jpg',
         enOferta: true,
         precioOferta: 3490,
+        stock: 10,
     },
     {
         id: 3,
@@ -33,8 +34,8 @@ const PRODUCTOS_INICIALES = [
         imagen: '/images/productos/galletas-artesanales.jpg',
         enOferta: true,
         precioOferta: 1990,
+        stock: 12,
     },
-
     {
         id: 4,
         nombre: 'Torta de zanahoria',
@@ -43,6 +44,7 @@ const PRODUCTOS_INICIALES = [
         descripcion: 'Bizcocho de zanahoria y canela, cubierto con frosting de queso crema. Suave, aromática y perfectamente equilibrada.',
         imagen: '/images/productos/torta-zanahoria.jpg',
         enOferta: false,
+        stock: 8,
     },
     {
         id: 5,
@@ -53,6 +55,7 @@ const PRODUCTOS_INICIALES = [
         imagen: '/images/productos/torta-tres-leches.jpg',
         enOferta: true,
         precioOferta: 12990,
+        stock: 6,
     },
     {
         id: 6,
@@ -62,6 +65,7 @@ const PRODUCTOS_INICIALES = [
         descripcion: 'Capas de bizcocho de vainilla alternadas con crema pastelera y frutillas frescas de temporada. Fresca y colorida.',
         imagen: '/images/productos/torta-frutilla.jpg',
         enOferta: false,
+        stock: 4,
     },
     {
         id: 7,
@@ -71,6 +75,7 @@ const PRODUCTOS_INICIALES = [
         descripcion: 'Torta de vainilla multicolor con suave frosting de mantequilla, decorada para que cada celebración sea inolvidable.',
         imagen: '/images/productos/torta-cumpleanos.jpg',
         enOferta: false,
+        stock: 3,
     },
     {
         id: 8,
@@ -80,8 +85,8 @@ const PRODUCTOS_INICIALES = [
         descripcion: 'Capas crujientes de hojaldre casero bañadas en manjar artesanal chileno y rematadas con merengue tostado.',
         imagen: '/images/productos/torta-mil-hojas.jpg',
         enOferta: false,
+        stock: 10,
     },
-
     {
         id: 9,
         nombre: 'Pie de limón',
@@ -90,6 +95,7 @@ const PRODUCTOS_INICIALES = [
         descripcion: 'Masa sablée crocante rellena de crema de limón natural y cubierta con merengue italiano tostado.',
         imagen: '/images/productos/pie-limon.jpg',
         enOferta: false,
+        stock: 7,
     },
     {
         id: 10,
@@ -99,6 +105,7 @@ const PRODUCTOS_INICIALES = [
         descripcion: 'Savoiardi empapados en café espresso y licor, cubiertos con crema suave de mascarpone y cacao en polvo.',
         imagen: '/images/productos/tiramisu.jpg',
         enOferta: false,
+        stock: 9,
     },
     {
         id: 11,
@@ -109,6 +116,7 @@ const PRODUCTOS_INICIALES = [
         imagen: '/images/productos/brownie.jpg',
         enOferta: true,
         precioOferta: 2190,
+        stock: 14,
     },
     {
         id: 12,
@@ -118,8 +126,8 @@ const PRODUCTOS_INICIALES = [
         descripcion: 'Versión individual del clásico pastel de tres leches: húmedo, cremoso y con una cucharada de canela por encima.',
         imagen: '/images/productos/tres-leches-individual.jpg',
         enOferta: false,
+        stock: 5,
     },
-
     {
         id: 13,
         nombre: 'Galletas chips de chocolate',
@@ -128,6 +136,7 @@ const PRODUCTOS_INICIALES = [
         descripcion: 'Galletas suaves por dentro y crocantes por fuera, repletas de chips de chocolate amargo con toque artesanal.',
         imagen: '/images/productos/galletas-chocolate.jpg',
         enOferta: false,
+        stock: 11,
     },
     {
         id: 14,
@@ -137,8 +146,8 @@ const PRODUCTOS_INICIALES = [
         descripcion: 'Galletas saludables con avena integral, pasas rubias y canela. Crujientes, nutritivas y perfectas para la tarde.',
         imagen: '/images/productos/galletas-avena.jpg',
         enOferta: false,
+        stock: 8,
     },
-
     {
         id: 15,
         nombre: 'Cupcake de vainilla',
@@ -147,6 +156,7 @@ const PRODUCTOS_INICIALES = [
         descripcion: 'Esponjoso cupcake de vainilla natural coronado con suave frosting de crema de mantequilla.',
         imagen: '/images/productos/cupcake-vainilla.jpg',
         enOferta: false,
+        stock: 16,
     },
     {
         id: 16,
@@ -156,6 +166,7 @@ const PRODUCTOS_INICIALES = [
         descripcion: 'Cupcake de chocolate amargo intenso con frosting de ganache artesanal para los amantes del buen cacao.',
         imagen: '/images/productos/cupcake-chocolate.jpg',
         enOferta: false,
+        stock: 12,
     },
     {
         id: 17,
@@ -165,8 +176,8 @@ const PRODUCTOS_INICIALES = [
         descripcion: 'Muffin esponjoso horneado con arándanos frescos del sur de Chile y azúcar rubia en la corteza.',
         imagen: '/images/productos/muffin-arandanos.jpg',
         enOferta: false,
+        stock: 2,
     },
-
     {
         id: 18,
         nombre: 'Croissant de mantequilla',
@@ -175,6 +186,7 @@ const PRODUCTOS_INICIALES = [
         descripcion: 'Croissant laminado con mantequilla pura de primera, hojaldrado, dorado y crujiente por fuera con técnica francesa.',
         imagen: '/images/productos/croissant.jpg',
         enOferta: false,
+        stock: 20,
     },
     {
         id: 19,
@@ -184,6 +196,7 @@ const PRODUCTOS_INICIALES = [
         descripcion: 'Masa brioche enrollada con canela aromática, azúcar morena y glaseado suave de queso crema.',
         imagen: '/images/productos/rollo-canela.jpg',
         enOferta: false,
+        stock: 0,
     },
     {
         id: 20,
@@ -193,6 +206,7 @@ const PRODUCTOS_INICIALES = [
         descripcion: 'Donut esponjoso glaseado con fina cobertura de azúcar y delicadas notas de vainilla.',
         imagen: '/images/productos/donut-glaseado.jpg',
         enOferta: false,
+        stock: 4,
     },
     {
         id: 21,
@@ -203,6 +217,7 @@ const PRODUCTOS_INICIALES = [
         imagen: '/images/productos/medialuna.jpg',
         enOferta: true,
         precioOferta: 790,
+        stock: 18,
     },
     {
         id: 22,
@@ -213,8 +228,8 @@ const PRODUCTOS_INICIALES = [
         imagen: '/images/productos/berlin-manjar.jpg',
         enOferta: true,
         precioOferta: 1290,
+        stock: 15,
     },
-
     {
         id: 23,
         nombre: 'Alfajores de maicena',
@@ -223,6 +238,7 @@ const PRODUCTOS_INICIALES = [
         descripcion: 'Alfajores clásicos chilenos: dos tapas delicadas de maicena que se deshacen en la boca, manjar casero y coco rallado.',
         imagen: '/images/productos/alfajores-maicena.jpg',
         enOferta: false,
+        stock: 10,
     },
     {
         id: 24,
@@ -232,6 +248,7 @@ const PRODUCTOS_INICIALES = [
         descripcion: 'Macarons de almendra con rellenos artesanales de frambuesa, chocolate belga, pistacho y vainilla.',
         imagen: '/images/productos/macarons.jpg',
         enOferta: false,
+        stock: 6,
     },
     {
         id: 25,
@@ -241,6 +258,7 @@ const PRODUCTOS_INICIALES = [
         descripcion: 'Trufas artesanales de chocolate belga, rellenas de ganache y rodadas en fino cacao amargo en polvo.',
         imagen: '/images/productos/trufas-chocolate.jpg',
         enOferta: false,
+        stock: 8,
     },
     {
         id: 26,
@@ -250,6 +268,7 @@ const PRODUCTOS_INICIALES = [
         descripcion: 'Selección de nuestros mejores dulces: alfajores, trufas, macarons y galletas artesanales en elegante presentación.',
         imagen: '/images/productos/caja-dulces.jpg',
         enOferta: false,
+        stock: 5,
     },
     {
         id: 27,
@@ -259,6 +278,7 @@ const PRODUCTOS_INICIALES = [
         descripcion: 'Pionono esponjoso relleno de generosas capas de manjar artesanal chileno. El postre clásico de las onces familiares.',
         imagen: '/images/productos/brazo-de-reina.jpg',
         enOferta: false,
+        stock: 7,
     },
     {
         id: 28,
@@ -268,10 +288,30 @@ const PRODUCTOS_INICIALES = [
         descripcion: 'Tradicionales empolvados chilenos con masa suave y aireada, abundante manjar de leche y cubiertos en azúcar flor.',
         imagen: '/images/productos/empolvados.jpg',
         enOferta: false,
+        stock: 9,
     },
 ]
 
 const IDS_CATALOGO_BASE = new Set(PRODUCTOS_INICIALES.map((p) => p.id))
+
+/**
+ * Asegura que un producto tenga un valor de stock numérico entero >= 0.
+ * Si un producto antiguo no posee stock, asigna un valor compatible.
+ */
+function normalizarProducto(producto) {
+    if (!producto || typeof producto !== 'object') return producto
+
+    let stock = producto.stock
+    if (typeof stock !== 'number' || !Number.isFinite(stock) || stock < 0) {
+        const base = PRODUCTOS_INICIALES.find((p) => p.id === producto.id)
+        stock = base && typeof base.stock === 'number' ? base.stock : 10
+    }
+
+    return {
+        ...producto,
+        stock: Math.floor(stock),
+    }
+}
 
 function inicializarCatalogo() {
     try {
@@ -292,13 +332,26 @@ function inicializarCatalogo() {
         const productosGuardados = JSON.parse(datosGuardados)
         if (!Array.isArray(productosGuardados)) return
 
+        // Combinar preservando cambios o productos de admin y asegurando stock
         const productosAdmin = productosGuardados.filter(
             (p) => !IDS_CATALOGO_BASE.has(p.id)
         )
 
+        const baseActualizada = PRODUCTOS_INICIALES.map((base) => {
+            const guardado = productosGuardados.find((p) => p.id === base.id)
+            if (guardado) {
+                return normalizarProducto({
+                    ...base,
+                    ...guardado,
+                    stock: typeof guardado.stock === 'number' ? guardado.stock : base.stock,
+                })
+            }
+            return { ...base }
+        })
+
         const fusionados = [
-            ...PRODUCTOS_INICIALES.map((p) => ({ ...p })),
-            ...productosAdmin,
+            ...baseActualizada,
+            ...productosAdmin.map(normalizarProducto),
         ]
 
         localStorage.setItem(CLAVE_STORAGE, JSON.stringify(fusionados))
@@ -318,7 +371,7 @@ function obtenerProductos() {
             const productos = JSON.parse(guardados)
 
             if (Array.isArray(productos)) {
-                return productos
+                return productos.map(normalizarProducto)
             }
         }
     } catch (error) {
@@ -330,7 +383,8 @@ function obtenerProductos() {
 
 function guardarProductos(productos) {
     try {
-        localStorage.setItem(CLAVE_STORAGE, JSON.stringify(productos))
+        const normalizados = productos.map(normalizarProducto)
+        localStorage.setItem(CLAVE_STORAGE, JSON.stringify(normalizados))
         return true
     } catch (error) {
         console.error('No se pudieron guardar los productos:', error)
@@ -378,8 +432,14 @@ export function listarOfertas() {
 export function agregarProducto(producto) {
     const productos = obtenerProductos()
 
+    const stock =
+        producto?.stock !== undefined && producto?.stock !== ''
+            ? Math.max(0, Math.floor(Number(producto.stock) || 0))
+            : 10
+
     const nuevoProducto = {
         ...producto,
+        stock,
         id: Date.now(),
     }
 
@@ -402,7 +462,7 @@ export function editarProducto(id, cambios) {
 
     const actualizados = productos.map((producto) =>
         producto.id === id
-            ? { ...producto, ...cambios, id: producto.id }
+            ? normalizarProducto({ ...producto, ...cambios, id: producto.id })
             : producto
     )
 
@@ -416,6 +476,96 @@ export function eliminarProducto(id) {
     if (actualizados.length === productos.length) {
         return false
     }
+
+    return guardarProductos(actualizados)
+}
+
+/**
+ * Actualiza directamente el stock de un producto dado su ID.
+ * @param {number|string} id Identificador del producto.
+ * @param {number} nuevoStock Nuevo valor de stock (entero >= 0).
+ * @returns {boolean} true si se actualizó correctamente, false en caso contrario.
+ */
+export function actualizarStock(id, nuevoStock) {
+    const stockNum = Number(nuevoStock)
+    if (!Number.isFinite(stockNum) || stockNum < 0 || !Number.isInteger(stockNum)) {
+        return false
+    }
+
+    return editarProducto(Number(id), { stock: stockNum })
+}
+
+/**
+ * Valida si hay stock disponible para un listado de ítems.
+ * @param {Array<{ id: number, cantidad: number, nombre?: string }>} items
+ * @returns {{ ok: boolean, error?: string }}
+ */
+export function validarStockDisponible(items) {
+    if (!Array.isArray(items) || items.length === 0) {
+        return { ok: false, error: 'No hay productos a validar.' }
+    }
+
+    const productos = obtenerProductos()
+
+    for (const item of items) {
+        const idNum = Number(item.id)
+        const cantidad = Number(item.cantidad)
+
+        if (!Number.isInteger(cantidad) || cantidad <= 0) {
+            return {
+                ok: false,
+                error: `La cantidad solicitada para "${item.nombre || item.id}" debe ser un entero positivo.`,
+            }
+        }
+
+        const producto = productos.find((p) => p.id === idNum)
+
+        if (!producto) {
+            return {
+                ok: false,
+                error: `El producto "${item.nombre || item.id}" ya no se encuentra en el catálogo.`,
+            }
+        }
+
+        const stockDisponible = typeof producto.stock === 'number' ? producto.stock : 0
+
+        if (stockDisponible <= 0) {
+            return {
+                ok: false,
+                error: `El producto "${producto.nombre}" se encuentra agotado.`,
+            }
+        }
+
+        if (cantidad > stockDisponible) {
+            return {
+                ok: false,
+                error: `No hay suficiente stock para "${producto.nombre}". Solicitado: ${cantidad}, Disponible: ${stockDisponible}.`,
+            }
+        }
+    }
+
+    return { ok: true }
+}
+
+/**
+ * Descuenta el stock de los productos tras una compra confirmada.
+ * Garantiza que el stock no sea negativo.
+ * @param {Array<{ id: number, cantidad: number }>} items
+ * @returns {boolean}
+ */
+export function descontarStock(items) {
+    if (!Array.isArray(items) || items.length === 0) return false
+
+    const productos = obtenerProductos()
+    const actualizados = productos.map((producto) => {
+        const itemComprado = items.find((it) => Number(it.id) === producto.id)
+        if (itemComprado) {
+            const cant = Math.max(0, Number(itemComprado.cantidad) || 0)
+            const nuevoStock = Math.max(0, producto.stock - cant)
+            return { ...producto, stock: nuevoStock }
+        }
+        return producto
+    })
 
     return guardarProductos(actualizados)
 }

@@ -13,6 +13,7 @@ function ProductCard({
     enOferta,
     categoria,
     imagen,
+    stock,
     onAgregar,
     colClass = 'col-12 col-sm-6 col-lg-4 col-xl-3',
 }) {
@@ -42,7 +43,7 @@ function ProductCard({
     }
 
     const formatearPrecio = (valor) =>
-        valor.toLocaleString('es-CL', {
+        (valor || 0).toLocaleString('es-CL', {
             style: 'currency',
             currency: 'CLP',
             maximumFractionDigits: 0,
@@ -57,6 +58,9 @@ function ProductCard({
     const descuentoPct = ofertaValida
         ? Math.round(((precio - precioOferta) / precio) * 100)
         : 0
+
+    const esAgotado = typeof stock === 'number' && stock <= 0
+    const esStockBajo = typeof stock === 'number' && stock > 0 && stock <= 5
 
     return (
         <div className={colClass}>
@@ -85,11 +89,29 @@ function ProductCard({
                 </div>
 
                 <div className="card-body d-flex flex-column p-4">
-                    {categoria && (
-                        <Badge className="align-self-start mb-3 px-3 py-2">
-                            {categoria}
-                        </Badge>
-                    )}
+                    <div className="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                        {categoria && (
+                            <Badge className="px-3 py-2">
+                                {categoria}
+                            </Badge>
+                        )}
+
+                        {esAgotado && (
+                            <span className="badge bg-danger">
+                                Agotado
+                            </span>
+                        )}
+                        {esStockBajo && (
+                            <span className="badge bg-warning text-dark">
+                                {stock === 1 ? '¡Última unidad!' : `¡Últimas ${stock} un.!`}
+                            </span>
+                        )}
+                        {typeof stock === 'number' && stock > 5 && (
+                            <span className="badge bg-success-subtle text-success border border-success-subtle">
+                                Disponible ({stock})
+                            </span>
+                        )}
+                    </div>
 
                     <h2 className="h4 fw-bold" style={{ color: '#4b2e25' }}>
                         {nombre}
@@ -123,14 +145,26 @@ function ProductCard({
                         )}
 
                         <div className="d-flex flex-column gap-2">
-                            <Button
-                                type="button"
-                                size="lg"
-                                className="w-100"
-                                onClick={onAgregar}
-                            >
-                                Agregar al carrito
-                            </Button>
+                            {esAgotado ? (
+                                <Button
+                                    type="button"
+                                    size="lg"
+                                    className="w-100"
+                                    disabled
+                                    variant="secondary"
+                                >
+                                    Agotado
+                                </Button>
+                            ) : (
+                                <Button
+                                    type="button"
+                                    size="lg"
+                                    className="w-100"
+                                    onClick={onAgregar}
+                                >
+                                    Agregar al carrito
+                                </Button>
+                            )}
 
                             {id !== undefined && (
                                 <Link

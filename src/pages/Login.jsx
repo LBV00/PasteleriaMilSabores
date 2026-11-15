@@ -32,7 +32,7 @@ function Login() {
         setMensaje(resultado.mensaje)
         setTipoMensaje('success')
 
-        const usuario = obtenerSesion()
+        const usuario = resultado.usuario || obtenerSesion()
 
         setTimeout(() => {
             if (usuario?.rol === 'admin') {
@@ -99,6 +99,18 @@ function Login() {
                     Ingresar
                 </Button>
             </form>
+
+            <div className="card bg-light border-0 p-3 mt-4 small text-secondary">
+                <p className="fw-bold mb-1 text-dark">🔑 Cuentas de demostración:</p>
+                <div className="d-flex justify-content-between mb-1">
+                    <span>Administrador:</span>
+                    <span className="font-monospace">admin@pasteleria.cl / admin123</span>
+                </div>
+                <div className="d-flex justify-content-between">
+                    <span>Cliente:</span>
+                    <span className="font-monospace">cliente@pasteleria.cl / cliente123</span>
+                </div>
+            </div>
 
             <p className="text-center mt-4 mb-0">
                 ¿No tienes cuenta?{' '}

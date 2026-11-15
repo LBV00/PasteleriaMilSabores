@@ -8,14 +8,21 @@ function QuantityControl({
     onAumentar,
     onCambiarCantidad,
     min = 1,
+    max,
     disabled = false,
 }) {
     function manejarChange(evento) {
         const nuevoValor = Number(evento.target.value)
         if (Number.isInteger(nuevoValor) && nuevoValor >= min && onCambiarCantidad) {
-            onCambiarCantidad(nuevoValor)
+            if (max !== undefined && nuevoValor > max) {
+                onCambiarCantidad(max)
+            } else {
+                onCambiarCantidad(nuevoValor)
+            }
         }
     }
+
+    const puedeAumentar = !disabled && (max === undefined || cantidad < max)
 
     return (
         <div className="input-group">
@@ -34,6 +41,7 @@ function QuantityControl({
                 className="form-control text-center"
                 type="number"
                 min={min}
+                max={max}
                 step="1"
                 value={cantidad}
                 disabled={disabled}
@@ -44,7 +52,7 @@ function QuantityControl({
                 type="button"
                 variant="outline-secondary"
                 aria-label={nombreProducto ? `Aumentar cantidad de ${nombreProducto}` : 'Aumentar cantidad'}
-                disabled={disabled}
+                disabled={!puedeAumentar}
                 onClick={onAumentar}
             >
                 +

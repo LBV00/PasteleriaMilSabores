@@ -23,7 +23,7 @@ function Carrito() {
     )
 
     function formatearPrecio(precio) {
-        return precio.toLocaleString('es-CL', {
+        return (precio || 0).toLocaleString('es-CL', {
             style: 'currency',
             currency: 'CLP',
             maximumFractionDigits: 0,
@@ -35,7 +35,13 @@ function Carrito() {
             setProductos(listarCarrito())
             setMensaje('Cantidad actualizada.')
         } else {
-            setMensaje('No se pudo actualizar la cantidad.')
+            const item = productos.find((p) => p.id === id)
+            const stock = item?.stock
+            if (stock !== undefined && cantidad > stock) {
+                setMensaje(`No puedes solicitar más de ${stock} unidades. Stock disponible alcanzado.`)
+            } else {
+                setMensaje('No se pudo actualizar la cantidad.')
+            }
         }
     }
 
